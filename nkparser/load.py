@@ -1,12 +1,11 @@
 import logging
-import os
 from abc import ABCMeta, abstractmethod
 
 import requests
 from bs4 import BeautifulSoup
 
 # Set Logger
-logger = logging.getLogger('NetkeibaLoader')
+logger = logging.getLogger('NkLoader')
 
 class NkLoader():
     def __init__(self):   
