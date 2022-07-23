@@ -1,1 +1,1 @@
-from nkparser.load import *
+from nkparser import load, parse

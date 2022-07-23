@@ -1,0 +1,80 @@
+{
+    "bracket" : {
+        "col_name" : "枠",
+        "selector" : "td[class*='Waku']",
+        "var_type" : "str",
+        "reg" : "\\d+"
+    },
+    "horse_number" : {
+        "col_name" : "馬番",
+        "selector" : "td[class*='Umaban']",
+        "var_type" : "str",
+        "reg" : "\\d+"
+    },
+    "horse_name" : {
+        "col_name" : "馬名",
+        "selector" : "td.HorseInfo",
+        "var_type" : "name",
+        "reg" : "\\D+"
+    },
+    "horse_id" : {
+        "col_name" : "馬ID",
+        "selector" : "td.HorseInfo",
+        "var_type" : "url",
+        "reg" : "\\d+"
+    },
+    "gender" : {
+        "col_name" : "性別",
+        "selector" : "td.Barei",
+        "var_type" : "str",
+        "reg": "[牡牝騸セ]"
+    },
+    "age" : {
+        "col_name" : "馬齢",
+        "selector" : "td.Barei",
+        "var_type" : "int",
+        "reg": "\\d+"
+    },
+    "burden" : {
+        "col_name" : "斤量",
+        "selector" : "td[class='Txt_C']",
+        "var_type" : "float",
+        "reg": "\\d+.?\\d?"
+    },
+    "jockey_name" : {
+        "col_name" : "騎手名",
+        "selector" : "td.Jockey",
+        "var_type" : "name",
+        "reg" : "\\D+"
+    },
+    "jockey_id" : {
+        "col_name" : "騎手ID",
+        "selector" : "td.Jockey",
+        "var_type" : "url",
+        "reg" : "\\d+"
+    },
+    "trainer_name" : {
+        "col_name" : "厩舎名",
+        "selector" : "td.Trainer",
+        "var_type" : "name",
+        "reg" : "\\D+"
+    },
+    "trainer_id" : {
+        "col_name" : "厩舎ID",
+        "selector" : "td.Trainer",
+        "var_type" : "url",
+        "reg" : "\\d+"
+    },
+    "weight" : {
+        "col_name" : "馬体重",
+        "selector" : "td.Weight",
+        "var_type" : "int",
+        "reg" : "(\\d+)\\([+-]?\\d*\\)"
+    },
+    "weight_diff" : {
+        "col_name" : "増減",
+        "selector" : "td.Weight",
+        "var_type" : "int",
+        "reg" : "\\d+\\(([+-]?\\d+)\\)"
+    }
+}
