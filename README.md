@@ -8,9 +8,9 @@ Please note that this is a heavy load on the [netkeiba.com](https://www.netkeiba
 ----------------------
 nkparser is available on pip installation.
 ```
-$ python -m pip install git+https://github.com/karaage0703/unko
+$ python -m pip install git+https://github.com/new-village/nkparser.git
 ```
-Requests officially supports Python 3.8+.
+nkparser officially supports Python 3.8+.
   
   
 ### Dependencies
@@ -20,12 +20,20 @@ Requests officially supports Python 3.8+.
   
 ### Usage
 ----------------------
-To parse netkeiba data and convert to pandas dataframe.
+To load [netkeiba.com](https://www.netkeiba.com/) data and parse to dictionay file.
 ```py
 # import modules
-from netkeiba import load
+from nkparser import load
+from nkparser import parse
 
-# load bs4 (ex. RACE)
-loader = load.NetkeibaLoader()
-soup = loader.load('RACE', "202202011211")
-```  
+# Load HTML (ex. ENTRY, ODDS, HORSE)
+loader = load.NkLoader()
+entry_soup = loader.load('ENTRY', "201206050810")
+odds_soup = loader.load('ODDS', "201206050810")
+horse_soup = loader.load('HORSE', "2009102739")
+
+# Parse HTML
+parser = parse.NkParser()
+race = parser.parse('RACE', entry_soup)
+entry = parser.parse('ENTRY', entry_soup)
+```
