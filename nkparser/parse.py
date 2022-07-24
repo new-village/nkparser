@@ -14,7 +14,9 @@ class NkParser():
         return parser.execute(soup)
 
     def _create_parser(self, data_type):
-        if data_type == "ENTRY":
+        if data_type == "RACE":
+            return RaceParser(data_type)
+        elif data_type == "ENTRY":
             return EntryParser(data_type)
         elif data_type == "ODDS":
             return OddsParser(data_type)
@@ -34,12 +36,12 @@ class BaseParser(metaclass=ABCMeta):
     def execute(self, soup):
         try:
             area = soup.select(self._css_selector())
-        except AttributeError:
+        except AttributeError as e:
             logger.error('There is not "%s" in HTML' % self._css_selector())
-            raise SystemExit()
+            raise SystemExit(e)
 
         # Extract HTML from target area
-        entry = [self._parse_data(row) for row in area[2:]]
+        entry = [self._parse_data(row) for row in area]
         # Extract Value from HTML
         entry = [{key: self._conv_var_type(key, horse[key]) for key in self.keys} for horse in entry]
         # Formatting Value
@@ -64,7 +66,7 @@ class BaseParser(metaclass=ABCMeta):
     def _conv_var_type(self, key, val):
         if val is not None:
             if self.config_json[key]['var_type'] == 'name':
-                val = val.a.get("title")
+                val = val.a.get("title")                
             elif self.config_json[key]['var_type'] == 'url':
                 val = val.a.get("href")
             else:
@@ -82,14 +84,18 @@ class BaseParser(metaclass=ABCMeta):
 
 class EntryParser(BaseParser):
     def _css_selector(self):
-        return 'table.ShutubaTable tr'
+        return 'tr.HorseList'
     
-class OddsParser():
-    def __init__(self) -> None:
-        pass
+class RaceParser(BaseParser):
+    def _css_selector(self):
+        return 'div.RaceMainColumn'
 
-class HorseParser():
-    def __init__(self) -> None:
-        pass
+class OddsParser(BaseParser):
+    def _css_selector(self):
+        return ''
+
+class HorseParser(BaseParser):
+    def _css_selector(self):
+        return ''
 
 

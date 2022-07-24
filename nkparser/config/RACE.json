@@ -1,0 +1,80 @@
+{
+    "race_id" : {
+        "col_name" : "レースID",
+        "selector" : "li.Active",
+        "var_type" : "url",
+        "reg" : "\\d+"
+    },
+    "race_number": {
+        "col_name" : "レース番号",
+        "selector" : "div.RaceNumWrap li.Active",
+        "var_type" : "int",
+        "reg" : "(\\d+)R"
+    },
+    "race_name": {
+        "col_name" : "レース名",
+        "selector" : "div.RaceNumWrap li.Active",
+        "var_type" : "name",
+        "reg" : ".+"
+    },
+    "time": {
+        "col_name" : "発走時刻",
+        "selector" : "div.RaceData01",
+        "var_type" : "str",
+        "reg" : "(\\d+:\\d+)発走"
+    },
+    "type": {
+        "col_name" : "コース種別",
+        "selector" : "div.RaceData01",
+        "var_type" : "str",
+        "reg" : "[芝ダ障]"
+    },
+    "length": {
+        "col_name" : "コース距離",
+        "selector" : "div.RaceData01",
+        "var_type" : "int",
+        "reg" : "\\d{4}"
+    },
+    "weather": {
+        "col_name" : "天候",
+        "selector" : "div.RaceData01",
+        "var_type" : "str",
+        "reg" : "晴|曇|小雨|雨|小雪|雪"
+    },
+    "condition": {
+        "col_name" : "馬場",
+        "selector" : "div.RaceData01",
+        "var_type" : "str",
+        "reg" : "良|稍重|重|不良"
+    },
+    "place": {
+        "col_name" : "会場",
+        "selector" : "div.RaceData02",
+        "var_type" : "str",
+        "reg" : "函館|札幌|福島|新潟|中山|東京|中京|京都|阪神|小倉"
+    },
+    "round": {
+        "col_name" : "回数",
+        "selector" : "div.RaceData02",
+        "var_type" : "int",
+        "reg" : "(\\d+)回"
+    },
+    "days": {
+        "col_name" : "開催日数",
+        "selector" : "div.RaceData02",
+        "var_type" : "int",
+        "reg" : "(\\d+)日目"
+    },
+    "head_count": {
+        "col_name" : "出走頭数",
+        "selector" : "div.RaceData02",
+        "var_type" : "int",
+        "reg" : "(\\d+)頭"
+    },
+    "max_prize": {
+        "col_name" : "最高賞金",
+        "selector" : "div.RaceData02",
+        "var_type" : "int",
+        "reg" : "本賞金:(\\d+)"
+    }
+}

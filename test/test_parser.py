@@ -8,21 +8,28 @@ class TestNkParser(unittest.TestCase):
         # Load class
         cls.parser = parse.NkParser()
         # Load sample data
-        cls.loader = load.NkLoader()
-        
+        _loader = load.NkLoader()
+        cls.normal = _loader.load('ENTRY', "201206050810")
+        cls.error = _loader.load('ENTRY', "201206050899")
+
     def test_entry_normal(self):
         # Load Arima Kinen page
-        raw = self.loader.load('ENTRY', "201206050810")
-        entry = self.parser.parse('ENTRY', raw)
+        entry = self.parser.parse('ENTRY', self.normal)
         #[(print(e)) for e in entry]
         # Compare result
         self.assertEqual(len(entry), 16)
 
     def test_entry_nonexistent_id(self):
         # Load Hakodate Kinen page
-        raw = self.loader.load('ENTRY', "201206050899")
         with self.assertRaises(SystemExit):
-            self.parser.parse('ENTRY', raw)
+            self.parser.parse('ENTRY', self.error)
+
+    def test_race_normal(self):
+        # Load Arima Kinen page
+        entry = self.parser.parse('RACE', self.normal)
+        [(print(e)) for e in entry]
+        # Compare result
+        self.assertEqual(len(entry), 1)
 
 if __name__ == '__main__':
     unittest.main
