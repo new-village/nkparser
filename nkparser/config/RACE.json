@@ -17,7 +17,13 @@
         "var_type" : "name",
         "reg" : ".+"
     },
-    "time": {
+    "race_date": {
+        "col_name" : "発走日",
+        "selector" : "div.RaceList_Item03",
+        "var_type" : "url",
+        "reg" : "kaisai_date=(\\d+)"
+    },
+    "race_time": {
         "col_name" : "発走時刻",
         "selector" : "div.RaceData01",
         "var_type" : "str",
@@ -34,6 +40,12 @@
         "selector" : "div.RaceData01",
         "var_type" : "int",
         "reg" : "\\d{4}"
+    },
+    "handed": {
+        "col_name" : "回り",
+        "selector" : "div.RaceData01",
+        "var_type" : "str",
+        "reg" : "\\(([右|左])\\)"
     },
     "weather": {
         "col_name" : "天候",

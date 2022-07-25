@@ -27,7 +27,7 @@ class TestNkParser(unittest.TestCase):
     def test_race_normal(self):
         # Load Arima Kinen page
         entry = self.parser.parse('RACE', self.normal)
-        [(print(e)) for e in entry]
+        #[(print(e)) for e in entry]
         # Compare result
         self.assertEqual(len(entry), 1)
 
