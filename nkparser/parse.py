@@ -1,6 +1,10 @@
+''' parse.py
+'''
 import json
 import logging
 from abc import ABCMeta, abstractmethod
+
+from bs4 import BeautifulSoup
 
 from .helper import formatter
 
@@ -8,10 +12,14 @@ from .helper import formatter
 logger = logging.getLogger('NkParser')
 
 class NkParser():
-    def parse(self, data_type, soup):
+    ''' NkParser
+    '''
+    def parse(self, data_type, text):
+        ''' parse
+        '''
         # Parse HTML file
         parser = self._create_parser(data_type)
-        return parser.execute(soup)
+        return parser.execute(text)
 
     def _create_parser(self, data_type):
         if data_type == "RACE":
@@ -24,21 +32,23 @@ class NkParser():
             return HorseParser(data_type)
         else:
             # Raise error and abort script
-            logger.error('Unexpected data type: %s' % (data_type))
+            logger.error('Unexpected data type: %s', data_type)
             raise SystemExit()
 
 class BaseParser(metaclass=ABCMeta):
+    ''' BaseParser
+    '''
     def __init__(self, data_type):
         # Load JSON file
         self.config_json = self._load_config(data_type)
         self.keys = self.config_json.keys()
 
-    def _run_parser_job(self, soup, css_selector):
+    def _area_parse(self, soup, css_selector):
         try:
             area = soup.select(css_selector)
-        except AttributeError as e:
-            logger.error('There is not "%s" in HTML' % css_selector)
-            raise SystemExit(e)
+        except AttributeError as exp:
+            logger.error('There is not "%s" in HTML', css_selector)
+            raise SystemExit from exp
 
         # Extract HTML from target area
         rec = [self._parse_data(row) for row in area]
@@ -52,26 +62,23 @@ class BaseParser(metaclass=ABCMeta):
     def _get_race_id(self, soup):
         try:
             target_selector = 'li.Active'
-            race_id = formatter(r'\d+', soup.select_one(target_selector).a.get("href"), 'url')
-        except AttributeError as e:
-            logger.error('Race ID is not found in %s selector area' % target_selector)
-            raise SystemExit(e)
- 
-        return race_id
-
+            return formatter(r'\d+', soup.select_one(target_selector).a.get("href"), 'url')
+        except AttributeError as exp:
+            logger.error('Race ID is not found in %s selector area', target_selector)
+            raise SystemExit from exp
 
     def _load_config(self, data_type):
         try:
-            with open('nkparser/config/' + data_type + '.json', 'r') as f:
-                return json.load(f)
-        except json.JSONDecodeError as e:
+            with open('nkparser/config/' + data_type + '.json', 'r', encoding='UTF-8') as file:
+                return json.load(file)
+        except json.JSONDecodeError as exc:
             # Raise error and abort script
-            logger.error('Config file decode error:', e)
-            raise SystemExit()
-        except FileNotFoundError as e:
-            logger.error('Config file not found:', e)
-            raise SystemExit()
-       
+            logger.error('Config file decode error: %s', exc)
+            raise SystemExit() from exc
+        except FileNotFoundError as exc:
+            logger.error('Config file not found: %s', exc)
+            raise SystemExit() from exc
+
     def _parse_data(self, row):
         return {key: row.select_one(self.config_json[key]['selector']) for key in self.keys}
 
@@ -91,33 +98,39 @@ class BaseParser(metaclass=ABCMeta):
         return val
 
     @abstractmethod
-    def execute(self):
-        pass
+    def execute(self, text):
+        ''' execute
+        '''
 
 class EntryParser(BaseParser):
-    def execute(self, soup):
+    ''' EntryParser
+    '''
+    def execute(self, text):
+        ''' execute
+        '''
         # Parse Entry Data
-        entry = self._run_parser_job(soup, 'tr.HorseList')
+        soup = BeautifulSoup(text, 'html.parser')
+        entry = self._area_parse(soup, 'tr.HorseList')
         # Add race_id
         race_id = self._get_race_id(soup)
         [e.update({'race_id': race_id}) for e in entry]
-
         return entry
 
-    
-class RaceParser(BaseParser):    
-    def execute(self, soup):
-        # Parse Entry Data
-        race = self._run_parser_job(soup, 'div.RaceMainColumn')
-        return race
-
+class RaceParser(BaseParser):
+    ''' RaceParser
+    '''
+    def execute(self, text):
+        soup = BeautifulSoup(text, 'html.parser')
+        return self._area_parse(soup, 'div.RaceMainColumn')
 
 class OddsParser(BaseParser):
-    def execute(self, soup):
+    ''' OddsParser
+    '''
+    def execute(self, text):
         pass
 
 class HorseParser(BaseParser):
+    ''' HorseParser
+    '''
     def execute(self, soup):
         pass
-
-
