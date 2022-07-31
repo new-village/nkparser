@@ -33,20 +33,32 @@ class BaseParser(metaclass=ABCMeta):
         self.config_json = self._load_config(data_type)
         self.keys = self.config_json.keys()
 
-    def execute(self, soup):
+    def _run_parser_job(self, soup, css_selector):
         try:
-            area = soup.select(self._css_selector())
+            area = soup.select(css_selector)
         except AttributeError as e:
-            logger.error('There is not "%s" in HTML' % self._css_selector())
+            logger.error('There is not "%s" in HTML' % css_selector)
             raise SystemExit(e)
 
         # Extract HTML from target area
-        entry = [self._parse_data(row) for row in area]
+        rec = [self._parse_data(row) for row in area]
         # Extract Value from HTML
-        entry = [{key: self._conv_var_type(key, horse[key]) for key in self.keys} for horse in entry]
+        rec = [{key: self._conv_var_type(key, line[key]) for key in self.keys} for line in rec]
         # Formatting Value
-        entry = [{key: self._conv_format(key, horse[key]) for key in self.keys} for horse in entry]
-        return entry
+        rec = [{key: self._conv_format(key, line[key]) for key in self.keys} for line in rec]
+
+        return rec
+
+    def _get_race_id(self, soup):
+        try:
+            target_selector = 'li.Active'
+            race_id = formatter(r'\d+', soup.select_one(target_selector).a.get("href"), 'url')
+        except AttributeError as e:
+            logger.error('Race ID is not found in %s selector area' % target_selector)
+            raise SystemExit(e)
+ 
+        return race_id
+
 
     def _load_config(self, data_type):
         try:
@@ -79,23 +91,33 @@ class BaseParser(metaclass=ABCMeta):
         return val
 
     @abstractmethod
-    def _css_selector(self):
+    def execute(self):
         pass
 
 class EntryParser(BaseParser):
-    def _css_selector(self):
-        return 'tr.HorseList'
+    def execute(self, soup):
+        # Parse Entry Data
+        entry = self._run_parser_job(soup, 'tr.HorseList')
+        # Add race_id
+        race_id = self._get_race_id(soup)
+        [e.update({'race_id': race_id}) for e in entry]
+
+        return entry
+
     
-class RaceParser(BaseParser):
-    def _css_selector(self):
-        return 'div.RaceMainColumn'
+class RaceParser(BaseParser):    
+    def execute(self, soup):
+        # Parse Entry Data
+        race = self._run_parser_job(soup, 'div.RaceMainColumn')
+        return race
+
 
 class OddsParser(BaseParser):
-    def _css_selector(self):
-        return ''
+    def execute(self, soup):
+        pass
 
 class HorseParser(BaseParser):
-    def _css_selector(self):
-        return ''
+    def execute(self, soup):
+        pass
 
 

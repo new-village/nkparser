@@ -15,7 +15,7 @@ class TestNkParser(unittest.TestCase):
     def test_entry_normal(self):
         # Load Arima Kinen page
         entry = self.parser.parse('ENTRY', self.normal)
-        #[(print(e)) for e in entry]
+        # [(print(e)) for e in entry]
         # Compare result
         self.assertEqual(len(entry), 16)
 
@@ -26,10 +26,10 @@ class TestNkParser(unittest.TestCase):
 
     def test_race_normal(self):
         # Load Arima Kinen page
-        entry = self.parser.parse('RACE', self.normal)
-        #[(print(e)) for e in entry]
+        race = self.parser.parse('RACE', self.normal)
+        [(print(r)) for r in race]
         # Compare result
-        self.assertEqual(len(entry), 1)
+        self.assertEqual(len(race), 1)
 
 if __name__ == '__main__':
     unittest.main
