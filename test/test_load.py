@@ -34,7 +34,6 @@ class TestNkLoader(unittest.TestCase):
 
     def _load_odds(self, race_id):
         text = self.loader.load('ODDS', race_id)
-        print(json.loads(text))
         return json.loads(text)['status']
 
     def test_odds_normal(self):

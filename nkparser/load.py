@@ -1,5 +1,6 @@
 '''load.py
 '''
+import json
 import logging
 from abc import ABCMeta, abstractmethod
 
@@ -37,10 +38,10 @@ class NkLoader():
 class BaseLoader(metaclass=ABCMeta):
     ''' BaseLoader
     '''
+    @abstractmethod
     def load_html(self, entity_id):
         ''' load_html
         '''
-        return self._requests(self._create_url(entity_id))
 
     def _requests(self, url):
         try:
@@ -59,28 +60,34 @@ class BaseLoader(metaclass=ABCMeta):
 
         return response.text
 
-    @abstractmethod
-    def _create_url(self, entity_id):
-        pass
-
+    def _create_url(self, base_url, entity_id):
+        return base_url.replace('{ID}', entity_id)
 
 class EntryLoader(BaseLoader):
     ''' EntryLoader
     '''
-    def _create_url(self, entity_id):
+    def load_html(self, entity_id):
+        ''' load_html
+        '''
         base_url = 'https://race.netkeiba.com/race/shutuba.html?race_id={ID}'
-        return base_url.replace('{ID}', entity_id)
+        return self._requests(self._create_url(base_url, entity_id))
 
 class OddsLoader(BaseLoader):
     ''' OddsLoader
     '''
-    def _create_url(self, entity_id):
+    def load_html(self, entity_id):
+        ''' load_html
+        '''
         base_url = 'https://race.netkeiba.com/api/api_get_jra_odds.html?race_id={ID}&type=1'
-        return base_url.replace('{ID}', entity_id)
+        text = json.loads(self._requests(self._create_url(base_url, entity_id)))
+        text.update({'race_id': entity_id})
+        return json.dumps(text)
 
 class HorseLoader(BaseLoader):
     ''' HorseLoader
     '''
-    def _create_url(self, entity_id):
+    def load_html(self, entity_id):
+        ''' load_html
+        '''
         base_url = 'https://db.netkeiba.com/horse/{ID}'
-        return base_url.replace('{ID}', entity_id)
+        return self._requests(self._create_url(base_url, entity_id))
