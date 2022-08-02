@@ -3,7 +3,8 @@
         "col_name" : "馬番",
         "selector" : ".data.odds[\"1\"] | to_entries[] | .key",
         "var_type" : "str",
-        "reg" : "\\d+"
+        "reg" : "\\d+",
+        "function" : "zero_suppress"
     },
     "tan" : {
         "col_name" : "単勝",

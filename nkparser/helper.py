@@ -39,3 +39,16 @@ def time_to_seconds(arg):
         return float(time_list[1])
     else:
         return arg
+
+def zero_suppress(arg):
+    '''
+    Suppress zero from string numbers
+    Example
+    --------
+    >>> zero_suppress('03')
+        3
+    '''
+    if isinstance(arg, str):
+        return str(int(arg))
+    else:
+        return arg
