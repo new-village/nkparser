@@ -62,8 +62,9 @@
     "rap_time": {
         "col_name" : "タイム",
         "selector" : "span.RaceTime:first-child",
-        "var_type" : "str",
-        "reg" : "(\\d+:\\d+.\\d+)"
+        "var_type" : "float",
+        "reg" : "(\\d+:\\d+.\\d+)",
+        "function" : "time_to_seconds"
     },
     "last_3f": {
         "col_name" : "後3F",

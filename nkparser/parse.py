@@ -8,7 +8,7 @@ from abc import ABCMeta, abstractmethod
 import jq
 from bs4 import BeautifulSoup
 
-from .helper import formatter
+from nkparser.helper import *
 
 # Set Logger
 logger = logging.getLogger('NkParser')
@@ -97,7 +97,9 @@ class BaseParser(metaclass=ABCMeta):
         return val
 
     def _conv_format(self, key, val):
-        if 'reg' in self.config_json[key]:
+        if 'function' in self.config_json[key]:
+            val = globals()[self.config_json[key]['function']](val)
+        elif 'reg' in self.config_json[key]:
             val = formatter(self.config_json[key]['reg'], val, self.config_json[key]['var_type'])
         return val
 
