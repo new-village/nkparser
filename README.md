@@ -17,6 +17,7 @@ nkparser officially supports Python 3.8+.
 ----------------------
 - [requests](https://docs.python-requests.org/en/latest/)
 - [bs4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#)
+- [jq](https://github.com/mwilliamson/jq.py)
   
 ### Usage
 ----------------------
@@ -28,12 +29,13 @@ from nkparser import parse
 
 # Load HTML (ex. ENTRY, ODDS, HORSE)
 loader = load.NkLoader()
-entry_soup = loader.load('ENTRY', "201206050810")
-odds_soup = loader.load('ODDS', "201206050810")
-horse_soup = loader.load('HORSE', "2009102739")
+entry_text = loader.load('ENTRY', "201206050810")
+odds_text = loader.load('ODDS', "201206050810")
+horse_text = loader.load('HORSE', "2009102739")
 
 # Parse HTML
 parser = parse.NkParser()
-race = parser.parse('RACE', entry_soup)
-entry = parser.parse('ENTRY', entry_soup)
+race = parser.parse('RACE', entry_text)
+entry = parser.parse('ENTRY', entry_text)
+odds = parser.parse('ODDS', odds_text)
 ```

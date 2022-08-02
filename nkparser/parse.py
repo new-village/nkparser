@@ -4,6 +4,7 @@ import json
 import logging
 from abc import ABCMeta, abstractmethod
 
+import jq
 from bs4 import BeautifulSoup
 
 from .helper import formatter
@@ -85,7 +86,7 @@ class BaseParser(metaclass=ABCMeta):
     def _conv_var_type(self, key, val):
         if val is not None:
             if self.config_json[key]['var_type'] == 'name':
-                val = val.a.get("title")                
+                val = val.a.get("title")
             elif self.config_json[key]['var_type'] == 'url':
                 val = val.a.get("href")
             else:
@@ -121,16 +122,36 @@ class RaceParser(BaseParser):
     '''
     def execute(self, text):
         soup = BeautifulSoup(text, 'html.parser')
-        return self._area_parse(soup, 'div.RaceMainColumn')
+        race = self._area_parse(soup, 'div.RaceMainColumn')
+        if race[0]['race_id'] is None:
+            logger.error('There is no race_id in HTML')
+            raise SystemExit
+        return race
 
 class OddsParser(BaseParser):
     ''' OddsParser
     '''
     def execute(self, text):
-        pass
+        # Parse Odds Data from JSON string
+        data = json.loads(text)
+        odds = [self._add_header(record_tuple) for record_tuple in self._create_matrix(data)]
+        # Formatting Value
+        odds = [{key: self._conv_format(key, line[key]) for key in self.keys} for line in odds]
+        # Add race_id
+        race_id = jq.compile('.race_id').input(data).text().replace('"', '')
+        [o.update({'race_id': race_id}) for o in odds]
+        return odds
+
+    def _create_matrix(self, data):
+        tmx = [jq.compile(self.config_json[key]['selector']).input(data).all() for key in self.keys]
+        return list(zip(*tmx))
+
+    def _add_header(self, record):
+        return {key: val for key, val in zip(self.keys, record)}
+
 
 class HorseParser(BaseParser):
     ''' HorseParser
     '''
-    def execute(self, soup):
+    def execute(self, text):
         pass
