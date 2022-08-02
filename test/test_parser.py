@@ -66,5 +66,18 @@ class TestNkParser(unittest.TestCase):
         # Compare result
         self.assertEqual(len(odds), 16)
 
+    def _load_result(self, race_id):
+        return self.loader.load('RESULT', race_id)
+
+    def test_result_normal(self):
+        ''' test_result_normal
+        '''
+        # Load Arima Kinen page
+        text = self._load_result('201206050810')
+        race = self.parser.parse('RESULT', text)
+        # [(print(r)) for r in race]
+        # Compare result
+        self.assertEqual(len(race), 16)
+
 if __name__ == '__main__':
     unittest.main()

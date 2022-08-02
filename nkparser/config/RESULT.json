@@ -1,0 +1,104 @@
+{
+    "rank" : {
+        "col_name" : "着順",
+        "selector" : "td.Result_Num",
+        "var_type" : "str",
+        "reg" : "\\d+"
+    },
+    "bracket" : {
+        "col_name" : "枠",
+        "selector" : "td[class*='Waku']",
+        "var_type" : "str",
+        "reg" : "\\d+"
+    },
+    "horse_number" : {
+        "col_name" : "馬番",
+        "selector" : "td.Num.Txt_C",
+        "var_type" : "str",
+        "reg" : "\\d+"
+    },
+    "horse_name" : {
+        "col_name" : "馬名",
+        "selector" : "span.Horse_Name",
+        "var_type" : "name",
+        "reg" : "\\D+"
+    },
+    "horse_id" : {
+        "col_name" : "馬ID",
+        "selector" : "span.Horse_Name",
+        "var_type" : "url",
+        "reg" : "\\d+"
+    },
+    "gender" : {
+        "col_name" : "性別",
+        "selector" : "div.Horse_Info_Detail",
+        "var_type" : "str",
+        "reg": "[牡牝騸セ]"
+    },
+    "age" : {
+        "col_name" : "馬齢",
+        "selector" : "div.Horse_Info_Detail",
+        "var_type" : "int",
+        "reg": "\\d+"
+    },
+    "burden" : {
+        "col_name" : "斤量",
+        "selector" : "span.JockeyWeight",
+        "var_type" : "float",
+        "reg": "\\d+.?\\d?"
+    },
+    "jockey_id" : {
+        "col_name" : "騎手ID",
+        "selector" : "td.Jockey",
+        "var_type" : "url",
+        "reg" : "\\d+"
+    },
+    "jockey_name" : {
+        "col_name" : "騎手名",
+        "selector" : "td.Jockey",
+        "var_type" : "str",
+        "reg" : "\\S+"
+    },
+    "rap_time": {
+        "col_name" : "タイム",
+        "selector" : "span.RaceTime:first-child",
+        "var_type" : "str",
+        "reg" : "(\\d+:\\d+.\\d+)"
+    },
+    "last_3f": {
+        "col_name" : "後3F",
+        "selector" : "td:nth-child(12)",
+        "var_type" : "float",
+        "reg" : "(\\d+.\\d+)"
+    },
+    "passage_rank": {
+        "col_name" : "通過順",
+        "selector" : "td.PassageRate",
+        "var_type" : "str",
+        "reg" : "(\\d+-?\\d+?-?\\d+?-?\\d+?)\\n"
+    },
+    "trainer_name" : {
+        "col_name" : "厩舎名",
+        "selector" : "td.Trainer",
+        "var_type" : "name",
+        "reg" : "\\D+"
+    },
+    "trainer_id" : {
+        "col_name" : "厩舎ID",
+        "selector" : "td.Trainer",
+        "var_type" : "url",
+        "reg" : "\\d+"
+    },
+    "weight" : {
+        "col_name" : "馬体重",
+        "selector" : "td.Weight",
+        "var_type" : "int",
+        "reg" : "(\\d+)\\([+-]?\\d*\\)"
+    },
+    "weight_diff" : {
+        "col_name" : "増減",
+        "selector" : "td.Weight",
+        "var_type" : "int",
+        "reg" : "\\d+\\(([+-]?\\d+)\\)"
+    }
+}

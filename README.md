@@ -30,12 +30,15 @@ from nkparser import parse
 # Load HTML (ex. ENTRY, ODDS, HORSE)
 loader = load.NkLoader()
 entry_text = loader.load('ENTRY', "201206050810")
+result_text = loader.load('RESULT', "201206050810")
 odds_text = loader.load('ODDS', "201206050810")
 horse_text = loader.load('HORSE', "2009102739")
 
 # Parse HTML
 parser = parse.NkParser()
-race = parser.parse('RACE', entry_text)
+race1 = parser.parse('RACE', entry_text)
 entry = parser.parse('ENTRY', entry_text)
+race2 = parser.parse('RACE', result_text)
+result = parser.parse('RESULT', result_text)
 odds = parser.parse('ODDS', odds_text)
 ```

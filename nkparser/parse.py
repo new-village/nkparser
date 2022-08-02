@@ -30,6 +30,8 @@ class NkParser():
             return EntryParser(data_type)
         elif data_type == "ODDS":
             return OddsParser(data_type)
+        elif data_type == "RESULT":
+            return ResultParser(data_type)
         elif data_type == "HORSE":
             return HorseParser(data_type)
         else:
@@ -156,6 +158,24 @@ class OddsParser(BaseParser):
     def _add_header(self, record):
         return {key: val for key, val in zip(self.keys, record)}
 
+class ResultParser(BaseParser):
+    ''' ResultParser
+    '''
+    def execute(self, text):
+        # Parse Entry Data
+        soup = BeautifulSoup(text, 'html.parser')
+        race = self._area_parse(soup, 'tr.HorseList')
+
+        # Add race_id
+        race_id = self._get_race_id(soup)
+        [r.update({'race_id': race_id}) for r in race]
+
+        # Add prize
+        prize_text = formatter(r'本賞金:(.+)万円', soup.select_one('.RaceData02').text, 'str').split(',')
+        prize = [int(p) for p in prize_text] + [0] * (len(race) - len(prize_text))
+        [r.update({'prize': p}) for r, p in zip(race, prize)]
+
+        return race
 
 class HorseParser(BaseParser):
     ''' HorseParser

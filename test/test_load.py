@@ -48,7 +48,7 @@ class TestNkLoader(unittest.TestCase):
         '''
         # Load non-existent page
         status = self._load_odds('201206050899')
-        self.assertEqual(status, 'middle')
+        self.assertEqual(status, 'NG')
 
     def _load_horse(self, horse_id):
         text = self.loader.load('HORSE', horse_id)

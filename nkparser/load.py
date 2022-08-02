@@ -27,6 +27,8 @@ class NkLoader():
             return EntryLoader()
         elif category == "ODDS":
             return OddsLoader()
+        elif category == "RESULT":
+            return ResultLoader()
         elif category == "HORSE":
             return HorseLoader()
         else:
@@ -90,6 +92,15 @@ class OddsLoader(BaseLoader):
 
         text.update({'race_id': entity_id})
         return json.dumps(text)
+
+class ResultLoader(BaseLoader):
+    ''' HorseLoader
+    '''
+    def load_html(self, entity_id):
+        ''' load_html
+        '''
+        base_url = 'https://race.netkeiba.com/race/result.html?race_id={ID}'
+        return self._requests(self._create_url(base_url, entity_id))
 
 class HorseLoader(BaseLoader):
     ''' HorseLoader
