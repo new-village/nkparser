@@ -78,8 +78,16 @@ class OddsLoader(BaseLoader):
     def load_html(self, entity_id):
         ''' load_html
         '''
-        base_url = 'https://race.netkeiba.com/api/api_get_jra_odds.html?race_id={ID}&type=1'
+        # Load JSON Data
+        base_url = 'https://race.netkeiba.com/api/api_get_jra_odds.html?race_id={ID}&type=1&action=init'
         text = json.loads(self._requests(self._create_url(base_url, entity_id)))
+
+        # Confirme Data Format
+        if text['status'] == 'middle':
+            # HTTP Response is not 200 (Normal)
+            logger.warning('There is no odds data: %s', entity_id)
+            raise SystemExit()
+
         text.update({'race_id': entity_id})
         return json.dumps(text)
 

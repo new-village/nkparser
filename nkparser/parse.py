@@ -1,5 +1,6 @@
 ''' parse.py
 '''
+import itertools
 import json
 import logging
 from abc import ABCMeta, abstractmethod
@@ -86,9 +87,9 @@ class BaseParser(metaclass=ABCMeta):
     def _conv_var_type(self, key, val):
         if val is not None:
             if self.config_json[key]['var_type'] == 'name':
-                val = val.a.get("title")
+                val = val.a.get("title") if val.a is not None else None
             elif self.config_json[key]['var_type'] == 'url':
-                val = val.a.get("href")
+                val = val.a.get("href") if val.a is not None else None
             else:
                 val = val.text
         return val
@@ -143,8 +144,14 @@ class OddsParser(BaseParser):
         return odds
 
     def _create_matrix(self, data):
-        tmx = [jq.compile(self.config_json[key]['selector']).input(data).all() for key in self.keys]
-        return list(zip(*tmx))
+        tmx = [self._parse_json(key, data) for key in self.keys]
+        return list(itertools.zip_longest(*tmx))
+
+    def _parse_json(self, key, data):
+        try:
+            return jq.compile(self.config_json[key]['selector']).input(data).all()
+        except ValueError:
+            return []
 
     def _add_header(self, record):
         return {key: val for key, val in zip(self.keys, record)}

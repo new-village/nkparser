@@ -23,7 +23,7 @@ class TestNkParser(unittest.TestCase):
         # Load Arima Kinen page
         text = self._load_entry('201206050810')
         entry = self.parser.parse('ENTRY', text)
-        # [(print(e)) for e in entry]
+        #[(print(e)) for e in entry]
         # Compare result
         self.assertEqual(len(entry), 16)
 
