@@ -6,7 +6,6 @@ import unittest
 from bs4 import BeautifulSoup
 from nkparser import load
 
-
 class TestNkLoader(unittest.TestCase):
     ''' TestNkLoader
     '''
@@ -69,6 +68,12 @@ class TestNkLoader(unittest.TestCase):
         soup = self._load_horse('2002100000')
         self.assertIsNone(soup)
 
+    def test_race_schedule(self):
+        ''' test_race_schedule
+        '''
+        race = self.loader.race_list(2022, 7)
+        # [(print(r)) for r in race]
+        self.assertEqual(len(race), 336)
 
 if __name__ == '__main__':
     unittest.main()

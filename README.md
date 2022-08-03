@@ -27,6 +27,10 @@ To load [netkeiba.com](https://www.netkeiba.com/) data and parse to dictionay fi
 from nkparser import load
 from nkparser import parse
 
+# Get RACE List (ex. ENTRY, ODDS, HORSE)
+loader = load.NkLoader()
+race_id_list = loader.race_list(2022, 7)
+
 # Load HTML (ex. ENTRY, ODDS, HORSE)
 loader = load.NkLoader()
 entry_text = loader.load('ENTRY', "201206050810")
