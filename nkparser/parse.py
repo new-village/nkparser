@@ -9,6 +9,7 @@ from abc import ABCMeta, abstractmethod
 import jq
 from bs4 import BeautifulSoup
 
+import nkparser
 from nkparser.helper import *
 
 # Set Logger
@@ -73,9 +74,9 @@ class BaseParser(metaclass=ABCMeta):
             raise SystemExit from exp
 
     def _load_config(self, data_type):
-        print(os.getcwd())
         try:
-            with open('./config/' + data_type + '.json', 'r', encoding='UTF-8') as file:
+            dir = os.path.dirname(nkparser.__file__) + '/config/'
+            with open(dir + data_type + '.json', 'r', encoding='UTF-8') as file:
                 return json.load(file)
         except json.JSONDecodeError as exc:
             # Raise error and abort script
