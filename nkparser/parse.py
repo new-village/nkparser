@@ -1,6 +1,7 @@
 ''' parse.py
 '''
 import itertools
+import os
 import json
 import logging
 from abc import ABCMeta, abstractmethod
@@ -72,8 +73,9 @@ class BaseParser(metaclass=ABCMeta):
             raise SystemExit from exp
 
     def _load_config(self, data_type):
+        print(os.getcwd())
         try:
-            with open('nkparser/config/' + data_type + '.json', 'r', encoding='UTF-8') as file:
+            with open('./config/' + data_type + '.json', 'r', encoding='UTF-8') as file:
                 return json.load(file)
         except json.JSONDecodeError as exc:
             # Raise error and abort script
