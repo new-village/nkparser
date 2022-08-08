@@ -2,13 +2,13 @@
     "bracket" : {
         "col_name" : "枠",
         "selector" : "td[class*='Waku']",
-        "var_type" : "str",
+        "var_type" : "text",
         "reg" : "\\d+"
     },
     "horse_number" : {
         "col_name" : "馬番",
         "selector" : "td[class*='Umaban']",
-        "var_type" : "str",
+        "var_type" : "text",
         "reg" : "\\d+"
     },
     "horse_name" : {
@@ -26,19 +26,19 @@
     "gender" : {
         "col_name" : "性別",
         "selector" : "td.Barei",
-        "var_type" : "str",
+        "var_type" : "text",
         "reg": "[牡牝騸セ]"
     },
     "age" : {
         "col_name" : "馬齢",
         "selector" : "td.Barei",
-        "var_type" : "int",
+        "var_type" : "integer",
         "reg": "\\d+"
     },
     "burden" : {
         "col_name" : "斤量",
         "selector" : "td[class='Txt_C']",
-        "var_type" : "float",
+        "var_type" : "real",
         "reg": "\\d+.?\\d?"
     },
     "jockey_name" : {
@@ -68,13 +68,13 @@
     "weight" : {
         "col_name" : "馬体重",
         "selector" : "td.Weight",
-        "var_type" : "int",
+        "var_type" : "integer",
         "reg" : "(\\d+)\\([+-]?\\d*\\)"
     },
     "weight_diff" : {
         "col_name" : "増減",
         "selector" : "td.Weight",
-        "var_type" : "int",
+        "var_type" : "integer",
         "reg" : "\\d+\\(([+-]?\\d+)\\)"
     }
 }

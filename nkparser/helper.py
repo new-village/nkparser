@@ -7,7 +7,7 @@ def formatter(reg, target, type_string):
     Convert string to defined type
     Example
     --------
-    >>> formatter(r'\d+', '3,000', 'int')
+    >>> formatter(r'\d+', '3,000', 'integer')
         3000
     '''
     # Extract target variables
@@ -15,18 +15,18 @@ def formatter(reg, target, type_string):
     val = fmt.findall(target)[0] if target is not None and fmt.search(target) else None
 
     # # Redact comma from numerical values
-    if type_string == "int" or type_string == "float":
+    if type_string == "integer" or type_string == "real":
         if val is None:
             val = 0
         else:
             val = re.sub(",", "", val)
 
     # Convert type
-    if type_string == "int":
+    if type_string == "integer":
         value = int(val) if val is not None else 0
-    elif type_string == "float":
+    elif type_string == "real":
         value = float(val) if val is not None else 0
-    elif type_string == "str":
+    elif type_string == "text":
         value = str(val) if val is not None else ""
     else:
         value = val

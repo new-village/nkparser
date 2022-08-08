@@ -2,26 +2,26 @@
     "horse_number" : {
         "col_name" : "馬番",
         "selector" : ".data.odds[\"1\"] | to_entries[] | .key",
-        "var_type" : "str",
+        "var_type" : "text",
         "reg" : "\\d+",
         "function" : "zero_suppress"
     },
     "tan" : {
         "col_name" : "単勝",
         "selector" : ".data.odds[\"1\"][][0]",
-        "var_type" : "float",
+        "var_type" : "real",
         "reg": "\\d+.?\\d?"
     },
     "fuku_min" : {
         "col_name" : "複勝（最小）",
         "selector" : ".data.odds[\"2\"][][0]",
-        "var_type" : "float",
+        "var_type" : "real",
         "reg": "\\d+.?\\d?"
     },
     "fuku_max" : {
         "col_name" : "複勝（最大）",
         "selector" : ".data.odds[\"2\"][][1]",
-        "var_type" : "float",
+        "var_type" : "real",
         "reg": "\\d+.?\\d?"
     }
 }
