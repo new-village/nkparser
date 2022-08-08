@@ -1,6 +1,13 @@
 ''' helper.py
 '''
+import json
+import logging
+import os
 import re
+import nkparser
+
+# Set Logger
+logger = logging.getLogger('NkParser')
 
 def formatter(reg, target, type_string):
     '''
@@ -61,3 +68,22 @@ def zero_suppress(arg):
         return str(int(arg))
     else:
         return arg
+
+def load_config(data_type):
+    ''' load_config
+    The function loads configuration file from config directory
+
+    Args:
+        data_type (str): Category is identifier of data types such as ENTRY, ODDS, RACE and RESULT.
+    '''
+    try:
+        dir_location = os.path.dirname(nkparser.__file__) + '/config/'
+        with open(dir_location + data_type + '.json', 'r', encoding='UTF-8') as file:
+            return json.load(file)
+    except json.JSONDecodeError as exc:
+        # Raise error and abort script
+        logger.error('Config file decode error: %s', exc)
+        raise SystemExit() from exc
+    except FileNotFoundError as exc:
+        logger.error('Config file not found: %s', exc)
+        raise SystemExit() from exc
