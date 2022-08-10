@@ -14,13 +14,15 @@
     "horse_name" : {
         "col_name" : "馬名",
         "selector" : "td.HorseInfo",
-        "var_type" : "name",
+        "func": "set_title",
+        "var_type" : "text",
         "reg" : "\\D+"
     },
     "horse_id" : {
         "col_name" : "馬ID",
         "selector" : "td.HorseInfo",
-        "var_type" : "url",
+        "func": "set_url",
+        "var_type" : "text",
         "reg" : "\\d+"
     },
     "gender" : {
@@ -44,25 +46,29 @@
     "jockey_name" : {
         "col_name" : "騎手名",
         "selector" : "td.Jockey",
-        "var_type" : "name",
+        "func": "set_title",
+        "var_type" : "text",
         "reg" : "\\D+"
     },
     "jockey_id" : {
         "col_name" : "騎手ID",
         "selector" : "td.Jockey",
-        "var_type" : "url",
+        "func": "set_url",
+        "var_type" : "text",
         "reg" : "\\d+"
     },
     "trainer_name" : {
         "col_name" : "厩舎名",
         "selector" : "td.Trainer",
-        "var_type" : "name",
+        "func": "set_title",
+        "var_type" : "text",
         "reg" : "\\D+"
     },
     "trainer_id" : {
         "col_name" : "厩舎ID",
         "selector" : "td.Trainer",
-        "var_type" : "url",
+        "func": "set_url",
+        "var_type" : "text",
         "reg" : "\\d+"
     },
     "weight" : {

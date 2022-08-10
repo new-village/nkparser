@@ -52,7 +52,7 @@ def create_url(base_url, entity_id):
     return base_url.replace('{ID}', entity_id)
 
 
-def formatter(reg, target, type_string):
+def formatter(reg, target:str, type_string:str):
     '''
     Convert string to defined type
     Example
@@ -83,7 +83,7 @@ def formatter(reg, target, type_string):
 
     return value
 
-def time_to_seconds(arg):
+def time_to_seconds(arg) -> str:
     '''
     Convert string time that type 1:36.3 in Netkeiba.com data to seconds
     Example
@@ -91,15 +91,13 @@ def time_to_seconds(arg):
     >>> time_to_seconds('1:23.4')
         83.4
     '''
-    time_list = arg.split(':')
+    time_list = arg.text.split(':')
     if len(time_list) == 2:
-        return float(time_list[0]) * 60 + float(time_list[1])
-    elif len(time_list) == 1:
-        return float(time_list[1])
+        return str(float(time_list[0]) * 60 + float(time_list[1]))
     else:
         return arg
 
-def zero_suppress(arg):
+def zero_suppress(arg) -> str:
     '''
     Suppress zero from string numbers
     Example
@@ -107,10 +105,21 @@ def zero_suppress(arg):
     >>> zero_suppress('03')
         3
     '''
-    if isinstance(arg, str):
+    if isinstance(arg.text, str):
         return str(int(arg))
     else:
         return arg
+
+
+def set_title(soup) -> str:
+    """ description
+    """
+    return soup.a.get("title") if soup.a is not None else None
+
+def set_url(soup) -> str:
+    """ description
+    """
+    return soup.a.get("href") if soup.a is not None else None
 
 def load_config(data_type):
     ''' load_config

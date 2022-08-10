@@ -10,7 +10,8 @@ class TestNkLoader(unittest.TestCase):
         """ test methond
         """
         nkdata = nkparser.load("ENTRY", "201206050810")
-        self.assertEqual(len(nkdata.race), 1)
+        print(nkdata.table)
+        self.assertEqual(len(nkdata.info), 1)
         self.assertEqual(len(nkdata.table), 16)
 
     def test_odds(self):
@@ -23,7 +24,7 @@ class TestNkLoader(unittest.TestCase):
         """ test methond
         """
         nkdata = nkparser.load("RESULT", "201206050810")
-        self.assertEqual(len(nkdata.race), 1)
+        self.assertEqual(len(nkdata.info), 1)
         self.assertEqual(len(nkdata.table), 16)
 
 if __name__ == '__main__':

@@ -2,7 +2,8 @@
     "race_id" : {
         "col_name" : "レースID",
         "selector" : "li.Active",
-        "var_type" : "url",
+        "func": "set_url",
+        "var_type" : "text",
         "reg" : "\\d+"
     },
     "race_number": {
@@ -14,13 +15,15 @@
     "race_name": {
         "col_name" : "レース名",
         "selector" : "div.RaceNumWrap li.Active",
-        "var_type" : "name",
+        "func": "set_title",
+        "var_type" : "text",
         "reg" : ".+"
     },
     "race_date": {
         "col_name" : "発走日",
         "selector" : "div.RaceList_Item03",
-        "var_type" : "url",
+        "func": "set_url",
+        "var_type" : "text",
         "reg" : "kaisai_date=(\\d+)"
     },
     "race_time": {

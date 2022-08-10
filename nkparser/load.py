@@ -1,7 +1,7 @@
 '''load.py
 '''
 from nkparser.help import load_html, create_url, load_json
-from nkparser.parse import NkParser
+from nkparser.parse import parse_text, parse_json
 
 def load(data_type, entity_id):
     """ Load netkeiba.com data.
@@ -27,7 +27,8 @@ class NkLoader():
     def __init__(self, data_type, entity_id):
         self.data_type = data_type
         self.entity_id = entity_id
-        self.race = None
+        self.text = None
+        self.info = None
         self.table = None
 
 class EntryLoader(NkLoader):
@@ -40,9 +41,8 @@ class EntryLoader(NkLoader):
     def exec(self):
         """ Description
         """
-        parser = NkParser()
-        self.race = parser.parse("RACE", self.text)
-        self.table = parser.parse(self.data_type, self.text)
+        self.info = parse_text("RACE", self.text, self.entity_id)
+        self.table = parse_text("ENTRY", self.text, self.entity_id)
         return self
 
 class OddsLoader(NkLoader):
@@ -55,8 +55,7 @@ class OddsLoader(NkLoader):
     def exec(self):
         """ Description
         """
-        parser = NkParser()
-        self.table = parser.parse(self.data_type, self.text)
+        self.table = parse_json("ODDS", self.text, self.entity_id)
         return self
 
 class ResultLoader(NkLoader):
@@ -69,9 +68,8 @@ class ResultLoader(NkLoader):
     def exec(self):
         """ Description
         """
-        parser = NkParser()
-        self.race = parser.parse("RACE", self.text)
-        self.table = parser.parse(self.data_type, self.text)
+        self.info = parse_text("RACE", self.text, self.entity_id)
+        self.table = parse_text("RESULT", self.text, self.entity_id)
         return self
 
 class HorseLoader(NkLoader):
@@ -84,7 +82,5 @@ class HorseLoader(NkLoader):
     def exec(self):
         """ Description
         """
-        parser = NkParser()
-        self.race = parser.parse("RACE", self.text)
-        self.table = parser.parse(self.data_type, self.text)
+        self.info = parse_text("HORSE", self.text, self.entity_id)
         return self
