@@ -5,6 +5,7 @@ import os
 import re
 
 import requests
+from bs4 import Tag
 
 import nkparser
 
@@ -81,40 +82,40 @@ def formatter(reg, target:str, type_string:str):
     return value
 
 def time_to_seconds(arg) -> str:
-    '''
+    """
     Convert string time that type 1:36.3 in Netkeiba.com data to seconds
     Example
     --------
     >>> time_to_seconds('1:23.4')
         83.4
-    '''
+    """
     time_list = arg.text.split(':')
     if len(time_list) == 2:
         return str(float(time_list[0]) * 60 + float(time_list[1]))
     else:
         return arg
 
-def zero_suppress(arg) -> str:
-    '''
+def zero_suppress(arg:str) -> str:
+    """
     Suppress zero from string numbers
     Example
     --------
     >>> zero_suppress('03')
         3
-    '''
+    """
     return str(int(arg))
 
-def set_title(soup) -> str:
+def set_title(soup:Tag) -> str:
     """ description
     """
     return soup.a.get("title") if soup.a is not None else None
 
-def set_url(soup) -> str:
+def set_url(soup:Tag) -> str:
     """ description
     """
     return soup.a.get("href") if soup.a is not None else None
 
-def load_config(data_type):
+def load_config(data_type:str) -> str:
     """ The function loads configuration file from config directory
     :param data_type: Category is identifier of data types such as ENTRY, ODDS, RACE and RESULT.
     """
