@@ -2,7 +2,7 @@
 '''
 import unittest
 
-from nkparser import utilities
+from nkparser import utils
 
 
 class TestUtilities(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestUtilities(unittest.TestCase):
         ''' test_create_table_strings_normal
         '''
         for data_type in ['ENTRY', 'ODDS', 'RACE', 'ENTRY']:
-            sql_strings = utilities.create_table_sql(data_type)
+            sql_strings = utils.create_table_sql(data_type)
 
             # Compare result
             with self.subTest(dt=data_type):

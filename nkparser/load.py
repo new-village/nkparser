@@ -1,6 +1,6 @@
 '''load.py
 '''
-from nkparser.helper import load_html, create_url, load_json
+from nkparser.help import load_html, create_url, load_json
 from nkparser.parse import NkParser
 
 def load(data_type, entity_id):

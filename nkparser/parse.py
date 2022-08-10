@@ -10,7 +10,7 @@ import jq
 from bs4 import BeautifulSoup
 
 import nkparser
-from nkparser.helper import *
+from nkparser.help import *
 
 # Set Logger
 logger = logging.getLogger('NkParser')

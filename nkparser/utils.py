@@ -1,7 +1,7 @@
 ''' utilities
 '''
 import logging
-from nkparser.helper import load_config
+from nkparser.help import load_config
 
 # Set Logger
 logger = logging.getLogger('NkParser')
