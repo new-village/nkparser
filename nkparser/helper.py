@@ -4,10 +4,53 @@ import json
 import logging
 import os
 import re
+
+import requests
+
 import nkparser
 
 # Set Logger
 logger = logging.getLogger('NkParser')
+
+def load_html(url):
+    """ load netkeiba HTML
+    :param url: target url
+    :return str
+    """
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
+
+    # Response Status Confirmation
+    if response.status_code not in [200]:
+        # HTTP Response is not 200 (Normal)
+        raise SystemExit(f"Request to {url} has been failure: {response.status_code}")
+
+    return response.text
+
+def load_json(url):
+    """ load netkeiba JSON
+    :param url: target url
+    :return str
+    """
+    race_id = re.findall(r"\d{12}", url)[0]
+    text = json.loads(load_html(url))
+
+    # Confirme Data Format
+    if text['status'] == 'middle':
+        # HTTP Response is not 200 (Normal)
+        raise SystemExit(f"There is no odds data: {race_id}")
+
+    text.update({'race_id': race_id})
+    return json.dumps(text)
+
+def create_url(base_url, entity_id):
+    """ repleace entity id from base_url
+    :param base_url: base url for replace target
+    :param entity_id: replace item for {ID} string
+    :return str
+    """
+    return base_url.replace('{ID}', entity_id)
+
 
 def formatter(reg, target, type_string):
     '''

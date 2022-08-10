@@ -24,25 +24,17 @@ nkparser officially supports Python 3.8+.
 To load [netkeiba.com](https://www.netkeiba.com/) data and parse to dictionay file.
 ```py
 # import modules
-from nkparser import load
-from nkparser import parse
+import nkparser
 
-# Get RACE List (ex. ENTRY, ODDS, HORSE)
-loader = load.NkLoader()
-race_id_list = loader.race_list(2022, 7)
+# Load ENTRY or RESULT
+nkdata = nkparser.load("ENTRY", "201206050810")
+print(nkdata.race)
+# [{'race_id': '201206050810', 'race_number': 10, 'race_name': '有馬記念', ... }]
+print(nkdata.table)
+# [{'bracket': '7', 'horse_number': '13', 'horse_name': 'ゴールドシップ', ...}, ...]
 
-# Load HTML (ex. ENTRY, ODDS, HORSE)
-loader = load.NkLoader()
-entry_text = loader.load('ENTRY', "201206050810")
-result_text = loader.load('RESULT', "201206050810")
-odds_text = loader.load('ODDS', "201206050810")
-horse_text = loader.load('HORSE', "2009102739")
-
-# Parse HTML
-parser = parse.NkParser()
-race1 = parser.parse('RACE', entry_text)
-entry = parser.parse('ENTRY', entry_text)
-race2 = parser.parse('RACE', result_text)
-result = parser.parse('RESULT', result_text)
-odds = parser.parse('ODDS', odds_text)
+# Load ODDS
+nkdata = nkparser.load("ODDS", "201206050810")
+print(nkdata.table)
+# [{'horse_number': '1', 'tan': 51.6, 'fuku_min': 10.5, 'fuku_max': 18.7, 'race_id': '201206050810'}, ... ]
 ```

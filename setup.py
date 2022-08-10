@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='nkparser',
-    version='0.6',
+    version='0.7',
     author='new-village',
     url='https://github.com/new-village/nkparser',
     description='nkparser is a simple scraping library for netkeiba.com',
