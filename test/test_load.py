@@ -10,7 +10,6 @@ class TestNkLoader(unittest.TestCase):
         """ test methond
         """
         nkdata = nkparser.load("ENTRY", "201206050810")
-        print(nkdata.table)
         self.assertEqual(len(nkdata.info), 1)
         self.assertEqual(len(nkdata.table), 16)
 

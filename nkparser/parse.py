@@ -4,7 +4,7 @@ import itertools
 import json
 
 import jq
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 from nkparser.help import *
 
@@ -29,15 +29,33 @@ def parse_json(data_type, text, entity_id=None):
     parser = JsonParser(data_type, text, entity_id, "div.RaceMainColumn")
     return parser.exec()
 
-class TextParser():
+class Parser():
     """ base class of Loaders """
     def __init__(self, data_type, text, entity_id, selector):
+        self.data_type = data_type
         self.entity_id = entity_id
         self.soup = BeautifulSoup(text, "html.parser")
+        self.text = text
         self.selector = selector
         self.conf = load_config(data_type)
         self.keys = self.conf.keys()
 
+    def _apply_func(self, key, val):
+        if 'func' in self.conf[key] and val is not None:
+            val = globals()[self.conf[key]['func']](val)
+        return val
+
+    def _apply_format(self, key, val):
+        if 'reg' in self.conf[key] and val is not None:
+            val = formatter(self.conf[key]['reg'], val, self.conf[key]['var_type'])
+        return val
+
+    def _add_entity_id(self, line:dict):
+        line["race_id"] = self.entity_id
+        return line
+
+class TextParser(Parser):
+    """ base class of Loaders """
     def exec(self):
         """ execute Job
         """
@@ -45,10 +63,13 @@ class TextParser():
         work = [self._parse_data(row) for row in self._base_data()]
         # apply function
         work = [{key: self._apply_func(key, row[key]) for key in self.keys} for row in work]
+        # convert bs4 to string
+        work = [{key: self._to_string(row[key]) for key in self.keys} for row in work]
         # apply format
         work = [{key: self._apply_format(key, row[key]) for key in self.keys} for row in work]
         # add race_id
-        work = [self._add_entity_id(row) for row in work]
+        if self.data_type in ["ENTRY", "RESULT"]:
+            work = [self._add_entity_id(row) for row in work]
 
         return work
 
@@ -62,46 +83,27 @@ class TextParser():
     def _parse_data(self, row):
         return {key: row.select_one(self.conf[key]['selector']) for key in self.keys}
 
-    def _apply_func(self, key, val):
-        if 'func' in self.conf[key] and val is not None:
-            value = globals()[self.conf[key]['func']](val)
-        else:
-            value = val.text
-        return value
+    def _to_string(self, val):
+        if isinstance(val, Tag):
+            val = val.text
+        return val
 
-    def _apply_format(self, key, val):
-        if 'reg' in self.conf[key] and val is not None:
-            value = formatter(self.conf[key]['reg'], val, self.conf[key]['var_type'])
-        else:
-            value = val
-        return value
-
-    def _add_entity_id(self, line:dict):
-        line["race_id"] = self.entity_id
-        return line
-
-class JsonParser():
+class JsonParser(Parser):
     """ base class of Loaders """
-    def __init__(self, data_type, text, entity_id, selector):
-        self.entity_id = entity_id
-        self.text = text
-        self.selector = selector
-        self.conf = load_config(data_type)
-        self.keys = self.conf.keys()
-
     def exec(self):
         """ execute Job
         """
         # Parse Odds Data from JSON string
         work = json.loads(self.text)
         work = [self._add_header(record_tuple) for record_tuple in self._create_matrix(work)]
-
+        # apply function
+        work = [{key: self._apply_func(key, row[key]) for key in self.keys} for row in work]
         # Formatting Value
         work = [{key: self._apply_format(key, line[key]) for key in self.keys} for line in work]
         # Add race_id
-        work = [self._add_entity_id(line) for line in work]
+        if self.data_type in ["ODDS"]:
+            work = [self._add_entity_id(row) for row in work]
 
-    
         return work
 
     def _create_matrix(self, data):
@@ -116,14 +118,3 @@ class JsonParser():
 
     def _add_header(self, record):
         return {key: val for key, val in zip(self.keys, record)}
-
-    def _apply_format(self, key, val):
-        if 'reg' in self.conf[key] and val is not None:
-            value = formatter(self.conf[key]['reg'], val, self.conf[key]['var_type'])
-        else:
-            value = val
-        return value
-
-    def _add_entity_id(self, line:dict):
-        line["race_id"] = self.entity_id
-        return line

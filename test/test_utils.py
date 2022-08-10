@@ -2,17 +2,17 @@
 '''
 import unittest
 
-from nkparser import utils
-
+from nkparser.utils import create_table_sql
 
 class TestUtilities(unittest.TestCase):
-    ''' TestNkParser
-    '''
-    def test_create_table_strings_normal(self):
-        ''' test_create_table_strings_normal
-        '''
-        for data_type in ['ENTRY', 'ODDS', 'RACE', 'ENTRY']:
-            sql_strings = utils.create_table_sql(data_type)
+    """ TestNkParser
+    """
+    def test_create_table_sql(self):
+        """ test_create_table_sql
+        """
+        for data_type in ['ENTRY', 'ODDS', 'RACE', 'RESULT']:
+            sql_strings = create_table_sql(data_type)
+            print(sql_strings)
 
             # Compare result
             with self.subTest(dt=data_type):

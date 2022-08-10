@@ -1,7 +1,6 @@
 ''' helper.py
 '''
 import json
-import logging
 import os
 import re
 
@@ -9,8 +8,6 @@ import requests
 
 import nkparser
 
-# Set Logger
-logger = logging.getLogger('NkParser')
 
 def load_html(url):
     """ load netkeiba HTML
@@ -105,11 +102,7 @@ def zero_suppress(arg) -> str:
     >>> zero_suppress('03')
         3
     '''
-    if isinstance(arg.text, str):
-        return str(int(arg))
-    else:
-        return arg
-
+    return str(int(arg))
 
 def set_title(soup) -> str:
     """ description
@@ -122,20 +115,14 @@ def set_url(soup) -> str:
     return soup.a.get("href") if soup.a is not None else None
 
 def load_config(data_type):
-    ''' load_config
-    The function loads configuration file from config directory
-
-    Args:
-        data_type (str): Category is identifier of data types such as ENTRY, ODDS, RACE and RESULT.
-    '''
+    """ The function loads configuration file from config directory
+    :param data_type: Category is identifier of data types such as ENTRY, ODDS, RACE and RESULT.
+    """
     try:
         dir_location = os.path.dirname(nkparser.__file__) + '/config/'
         with open(dir_location + data_type + '.json', 'r', encoding='UTF-8') as file:
             return json.load(file)
     except json.JSONDecodeError as exc:
-        # Raise error and abort script
-        logger.error('Config file decode error: %s', exc)
-        raise SystemExit() from exc
+        raise SystemExit(f'Config file decode error: {exc}') from exc
     except FileNotFoundError as exc:
-        logger.error('Config file not found: %s', exc)
-        raise SystemExit() from exc
+        raise SystemExit(f'Config file not found: {exc}') from exc
