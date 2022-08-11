@@ -84,3 +84,16 @@ class HorseLoader(NkLoader):
         """
         self.info = parse_text("HORSE", self.text, self.entity_id)
         return self
+
+class CalLoader():
+    """ Entry data Loader """
+    def __init__(self, year, month):
+        url = f"https://keiba.yahoo.co.jp/schedule/list/{year}/?month={month}"
+        self.text = load_html(url)
+        self.table = None
+
+    def exec(self):
+        """ Description
+        """
+        self.table = parse_text("CAL", self.text)
+        return self.table

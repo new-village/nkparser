@@ -18,6 +18,8 @@ def parse_text(data_type, text, entity_id=None):
         parser = TextParser(data_type, text, entity_id, "div.RaceMainColumn")
     elif data_type in ["ENTRY", "RESULT"]:
         parser = TextParser(data_type, text, entity_id, "tr.HorseList")
+    elif data_type in ["CAL"]:
+        parser = TextParser(data_type, text, entity_id, "table.scheLs tr")
     else:
         raise ValueError(f"Unexpected data type: {data_type}")
 
@@ -70,6 +72,11 @@ class TextParser(Parser):
         # add race_id
         if self.data_type in ["ENTRY", "RESULT"]:
             work = [self._add_entity_id(row) for row in work]
+        # Specific process for CAL
+        if self.data_type in ["CAL"]:
+            # remove blank data
+            work = [row["race_id"] for row in work if row["race_id"] is not None and row["race_id"] != ""]
+            work = sum([['20' + row + str(i + 1).zfill(2) for i in range(12)] for row in work], [])
 
         return work
 

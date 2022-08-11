@@ -1,6 +1,7 @@
 """ utils
 """
 from nkparser.help import load_config
+from nkparser.load import CalLoader
 
 def create_table_sql(data_type=None):
     """ The function generate create table SQL strings based on SQLite3 by config file.
@@ -18,3 +19,11 @@ def create_table_sql(data_type=None):
     cols = ", ".join(cols)
 
     return f"CREATE TABLE IF NOT EXISTS {data_type} ({cols});"
+
+def race_list(year:int, month:int) -> list:
+    """ collect arguments race id.
+    :param year: target year
+    :param month: target month
+    """
+    calc = CalLoader(year, month)
+    return calc.exec()

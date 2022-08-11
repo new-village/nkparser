@@ -1,0 +1,9 @@
+{
+    "race_id": {
+        "col_name" : "レースID",
+        "selector" : "td:not(.wsLB)",
+        "func": "set_url",
+        "var_type" : "text",
+        "reg" : "/race/list/(\\d{8})/"
+    }
+}
