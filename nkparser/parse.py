@@ -57,7 +57,10 @@ class Parser():
             if key in ["race_id"]:
                 line[key] = self.entity_id
             elif key in ["entry_id", "result_id", "odds_id"]:
-                line[key] = self.entity_id + line['horse_number'].zfill(2)
+                if line['horse_number'] is not None:
+                    line[key] = self.entity_id + line['horse_number'].zfill(2)
+                else:
+                    line[key] = None
         return line
 
 class TextParser(Parser):
@@ -76,6 +79,9 @@ class TextParser(Parser):
         # special data processing for ENTRY and RESULT
         if self.data_type in ["ENTRY", "RESULT"]:
             work = [self._add_entity_id(row) for row in work]
+        # remove blank race data
+        if self.data_type in ["RACE"]:
+            work = work if work[0][f"{self.data_type.lower()}_id"] is not None else []
         # specific process for CAL
         if self.data_type in ["CAL"]:
             # remove blank data
@@ -114,6 +120,8 @@ class JsonParser(Parser):
         # Add race_id
         if self.data_type in ["ODDS"]:
             work = [self._add_entity_id(row) for row in work]
+            # remove blank data
+            work = work if work[0][f"{self.data_type.lower()}_id"] is not None else []
 
         return work
 
