@@ -36,7 +36,7 @@ print(nkdata.table)
 # Load ODDS
 nkdata = nkparser.load("ODDS", "201206050810")
 print(nkdata.table)
-# [{'horse_number': '1', 'tan': 51.6, 'fuku_min': 10.5, 'fuku_max': 18.7, 'race_id': '201206050810'}, ... ]
+# [{'horse_number': '1', 'tan': 51.6, 'fuku_min': 10.5, 'fuku_max': 18.7, ...}, ... ]
 ```
   
 If you execute bulk data load, you can use `race_list` function.
