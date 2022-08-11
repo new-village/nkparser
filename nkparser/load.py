@@ -1,7 +1,11 @@
 '''load.py
 '''
-from nkparser.help import load_html, create_url, load_json
-from nkparser.parse import parse_text, parse_json
+import time
+from random import randrange
+
+from nkparser.help import create_url, load_html, load_json
+from nkparser.parse import parse_json, parse_text
+
 
 def load(data_type, entity_id):
     """ Load netkeiba.com data.
@@ -30,6 +34,7 @@ class NkLoader():
         self.text = None
         self.info = None
         self.table = None
+        time.sleep(randrange(3, 6))
 
 class EntryLoader(NkLoader):
     """ Entry data Loader """
