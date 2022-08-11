@@ -79,6 +79,8 @@ class TextParser(Parser):
         # special data processing for ENTRY and RESULT
         if self.data_type in ["ENTRY", "RESULT"]:
             work = [self._add_entity_id(row) for row in work]
+        if self.data_type in ["RESULT"]:
+            work = set_prize(self.soup, work) if len(work) != 0 else work
         # remove blank race data
         if self.data_type in ["RACE"]:
             work = work if work[0][f"{self.data_type.lower()}_id"] is not None else []

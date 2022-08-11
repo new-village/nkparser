@@ -115,6 +115,14 @@ def set_url(soup:Tag) -> str:
     """
     return soup.a.get("href") if soup.a is not None else None
 
+def set_prize(soup:Tag, run:list) -> list:
+    """ description
+    """
+    # Add prize
+    prize_text = formatter(r'本賞金:(.+)万円', soup.select_one('.RaceData02').text, 'str').split(',')
+    prize = [int(p) * 10000 for p in prize_text] + [0] * (len(run) - len(prize_text))
+    return [{**r, **p} for r, p in zip(run, [{"prize": p} for p in prize])]
+
 def load_config(data_type:str) -> str:
     """ The function loads configuration file from config directory
     :param data_type: Category is identifier of data types such as ENTRY, ODDS, RACE and RESULT.

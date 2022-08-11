@@ -77,7 +77,7 @@
         "selector" : "span.RaceTime:first-child",
         "func" : "time_to_seconds",
         "var_type" : "real",
-        "reg" : "(\\d+:\\d+.\\d+)"
+        "reg" : "(\\d+.\\d+)"
     },
     "last_3f": {
         "col_name" : "後3F",
@@ -89,7 +89,7 @@
         "col_name" : "通過順",
         "selector" : "td.PassageRate",
         "var_type" : "text",
-        "reg" : "(\\d+-?\\d+?-?\\d+?-?\\d+?)\\n"
+        "reg" : "\\d{1,2}-\\d{1,2}-\\d{1,2}-\\d{1,2}|\\d{1,2}-\\d{1,2}-\\d{1,2}|\\d{1,2}-\\d{1,2}|\\d{1,2}"
     },
     "trainer_name" : {
         "col_name" : "厩舎名",
@@ -116,5 +116,10 @@
         "selector" : "td.Weight",
         "var_type" : "integer",
         "reg" : "\\d+\\(([+-]?\\d+)\\)"
+    },
+    "prize" : {
+        "col_name" : "獲得賞金",
+        "selector" : "null",
+        "var_type" : "int"
     }
 }
