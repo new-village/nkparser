@@ -28,7 +28,7 @@ import nkparser
 
 # Load ENTRY or RESULT
 nkdata = nkparser.load("ENTRY", "201206050810")
-print(nkdata.race)
+print(nkdata.info)
 # [{'race_id': '201206050810', 'race_number': 10, 'race_name': '有馬記念', ... }]
 print(nkdata.table)
 # [{'bracket': '7', 'horse_number': '13', 'horse_name': 'ゴールドシップ', ...}, ...]
