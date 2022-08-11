@@ -2,7 +2,7 @@
 '''
 import unittest
 
-from nkparser.utils import create_table_sql, race_list
+from nkparser.utils import create_index_sql, create_table_sql, race_list
 
 class TestUtilities(unittest.TestCase):
     """ TestNkParser
@@ -12,11 +12,20 @@ class TestUtilities(unittest.TestCase):
         """
         for data_type in ['ENTRY', 'ODDS', 'RACE', 'RESULT']:
             sql_strings = create_table_sql(data_type)
-            print(sql_strings)
 
             # Compare result
             with self.subTest(dt=data_type):
                 self.assertIn('CREATE TABLE IF NOT EXISTS '+ data_type, sql_strings)
+
+    def test_create_index_sql(self):
+        """ test_create_index_sql
+        """
+        for data_type in ['ENTRY', 'RESULT']:
+            sql_strings = create_index_sql(data_type)
+
+            # Compare result
+            with self.subTest(dt=data_type):
+                self.assertIn('CREATE INDEX IF NOT EXISTS ', sql_strings)
 
     def test_race_list(self):
         """ test_create_list
