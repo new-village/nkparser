@@ -73,9 +73,10 @@ class TextParser(Parser):
         work = [{key: self._to_string(row[key]) for key in self.keys} for row in work]
         # apply format
         work = [{key: self._apply_format(key, row[key]) for key in self.keys} for row in work]
-        # special data processing
-        work = [self._add_entity_id(row) for row in work]
-        # Specific process for CAL
+        # special data processing for ENTRY and RESULT
+        if self.data_type in ["ENTRY", "RESULT"]:
+            work = [self._add_entity_id(row) for row in work]
+        # specific process for CAL
         if self.data_type in ["CAL"]:
             # remove blank data
             work = [row["race_id"] for row in work if row["race_id"] is not None and row["race_id"] != ""]
