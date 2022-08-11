@@ -120,7 +120,7 @@ def set_prize(soup:Tag, run:list) -> list:
     """
     # Add prize
     prize_text = formatter(r'本賞金:(.+)万円', soup.select_one('.RaceData02').text, 'str').split(',')
-    prize = [int(p) * 10000 for p in prize_text] + [0] * (len(run) - len(prize_text))
+    prize = [int(p) for p in prize_text] + [0] * (len(run) - len(prize_text))
     return [{**r, **p} for r, p in zip(run, [{"prize": p} for p in prize])]
 
 def load_config(data_type:str) -> str:
