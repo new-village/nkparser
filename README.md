@@ -38,3 +38,22 @@ nkdata = nkparser.load("ODDS", "201206050810")
 print(nkdata.table)
 # [{'horse_number': '1', 'tan': 51.6, 'fuku_min': 10.5, 'fuku_max': 18.7, 'race_id': '201206050810'}, ... ]
 ```
+  
+If you execute bulk data load, you can use `race_list` function.
+```py
+# import modules
+import nkparser
+# bulk load
+for race_id in nkparser.race_list(2022, 7):
+    nkdata = nkparser.load("ENTRY", race_id)
+```
+  
+This library generate `CREATE TABLE` sql for SQLite3.
+```py
+# import modules
+import nkparser
+# generate SQL
+sql = nkparser.create_table_sql("ENTRY")
+print(sql)
+# CREATE TABLE IF NOT EXISTS ENTRY (bracket text, horse_number text, ... weight_diff integer);
+```
