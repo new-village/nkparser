@@ -120,6 +120,6 @@
     "prize" : {
         "col_name" : "獲得賞金",
         "selector" : "null",
-        "var_type" : "int"
+        "var_type" : "integer"
     }
 }
