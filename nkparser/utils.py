@@ -16,6 +16,8 @@ def create_table_sql(data_type=None):
     types = [val['var_type'] for val in load_config(data_type).values()]
     # Create comma separated strings
     cols = [k + ' ' + v for k, v in zip(keys, types)]
+    # Add PRIMARY KEY string to first column
+    cols[0] = cols[0] + " PRIMARY KEY"
     cols = ", ".join(cols)
 
     return f"CREATE TABLE IF NOT EXISTS {data_type} ({cols});"

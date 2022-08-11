@@ -12,6 +12,7 @@ class TestUtilities(unittest.TestCase):
         """
         for data_type in ['ENTRY', 'ODDS', 'RACE', 'RESULT']:
             sql_strings = create_table_sql(data_type)
+            print(sql_strings)
 
             # Compare result
             with self.subTest(dt=data_type):
