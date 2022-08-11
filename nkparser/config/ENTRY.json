@@ -1,4 +1,14 @@
 {
+    "entry_id" : {
+        "col_name" : "出馬ID",
+        "selector" : "null",
+        "var_type" : "text"
+    },
+    "race_id" : {
+        "col_name" : "レースID",
+        "selector" : "null",
+        "var_type" : "text"
+    },
     "bracket" : {
         "col_name" : "枠",
         "selector" : "td[class*='Waku']",

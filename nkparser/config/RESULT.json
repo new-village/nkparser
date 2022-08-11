@@ -1,4 +1,14 @@
 {
+    "result_id" : {
+        "col_name" : "結果ID",
+        "selector" : "null",
+        "var_type" : "text"
+    },
+    "race_id" : {
+        "col_name" : "レースID",
+        "selector" : "null",
+        "var_type" : "text"
+    },
     "rank" : {
         "col_name" : "着順",
         "selector" : "td.Result_Num",

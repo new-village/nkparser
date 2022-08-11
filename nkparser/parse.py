@@ -53,7 +53,11 @@ class Parser():
         return val
 
     def _add_entity_id(self, line:dict):
-        line["race_id"] = self.entity_id
+        for key in line.keys():
+            if key in ["race_id"]:
+                line[key] = self.entity_id
+            elif key in ["entry_id", "result_id", "odds_id"]:
+                line[key] = self.entity_id + line['horse_number'].zfill(2)
         return line
 
 class TextParser(Parser):
@@ -69,9 +73,8 @@ class TextParser(Parser):
         work = [{key: self._to_string(row[key]) for key in self.keys} for row in work]
         # apply format
         work = [{key: self._apply_format(key, row[key]) for key in self.keys} for row in work]
-        # add race_id
-        if self.data_type in ["ENTRY", "RESULT"]:
-            work = [self._add_entity_id(row) for row in work]
+        # special data processing
+        work = [self._add_entity_id(row) for row in work]
         # Specific process for CAL
         if self.data_type in ["CAL"]:
             # remove blank data
