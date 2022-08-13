@@ -1,5 +1,5 @@
 # nkparser
-[![Unittest](https://github.com/new-village/nkparser/actions/workflows/unittest.yaml/badge.svg?branch=main)](https://github.com/new-village/nkparser/actions/workflows/unittest.yaml)  
+[![TEST](https://github.com/new-village/nkparser/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/new-village/nkparser/actions/workflows/unittest.yaml)  
 **nkparser** is a python library for parsing [netkeiba.com](https://www.netkeiba.com/) data. nkparser only support to parse race (entry), odds, horse and results now.
 Please note that this is a heavy load on the [netkeiba.com](https://www.netkeiba.com/) depending on your usage.
   
