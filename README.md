@@ -4,7 +4,7 @@
 Please note that this is a heavy load on the [netkeiba.com](https://www.netkeiba.com/) depending on your usage.
   
 
-### Installing Requests and Supported Versions
+### Installing nkparser and Supported Versions
 ----------------------
 nkparser is available on pip installation.
 ```
