@@ -1,5 +1,6 @@
 # nkparser
-[![TEST](https://github.com/new-village/nkparser/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/new-village/nkparser/actions/workflows/unittest.yaml)  
+[![Test](https://github.com/new-village/nkparser/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/new-village/nkparser/actions/workflows/unittest.yaml)
+[![PyPI](https://badge.fury.io/py/nkparser.svg)](https://badge.fury.io/py/nkparser)  
 **nkparser** is a python library for parsing [netkeiba.com](https://www.netkeiba.com/) data. nkparser only support to parse race (entry), odds, horse and results now.
 Please note that this is a heavy load on the [netkeiba.com](https://www.netkeiba.com/) depending on your usage.
   
@@ -8,7 +9,7 @@ Please note that this is a heavy load on the [netkeiba.com](https://www.netkeiba
 ----------------------
 nkparser is available on pip installation.
 ```
-$ python -m pip install git+https://github.com/new-village/nkparser.git
+$ python -m pip install nkparser
 ```
 nkparser officially supports Python 3.8+.
   
@@ -55,5 +56,5 @@ import nkparser
 # generate SQL
 sql = nkparser.create_table_sql("ENTRY")
 print(sql)
-# CREATE TABLE IF NOT EXISTS ENTRY (bracket text, horse_number text, ... weight_diff integer);
+# CREATE TABLE IF NOT EXISTS ENTRY (bracket text, ... weight_diff integer);
 ```
