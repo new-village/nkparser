@@ -1,0 +1,86 @@
+{
+    "horse_id" : {
+        "col_name" : "馬ID",
+        "selector" : "null",
+        "var_type" : "text",
+        "index": "entity_id"
+    },
+    "father_id": {
+        "col_name" : "父馬ID",
+        "selector" : "table tr:nth-of-type(1) td:nth-of-type(1)",
+        "func": "set_url",
+        "var_type" : "text",
+        "reg" : "/horse/ped/(\\d+)/"
+    },
+    "father_name": {
+        "col_name" : "父馬名",
+        "selector" : "table tr:nth-of-type(1) td:nth-of-type(1)",
+        "var_type" : "text",
+        "reg" : "\\n(\\D+)\\n"
+    },
+    "mother_id": {
+        "col_name" : "母馬ID",
+        "selector" : "table tr:nth-of-type(3) td:nth-of-type(1)",
+        "func": "set_url",
+        "var_type" : "text",
+        "reg" : "/horse/ped/(\\d+)/"
+    },
+    "mother_name": {
+        "col_name" : "母馬名",
+        "selector" : "table tr:nth-of-type(3) td:nth-of-type(1)",
+        "var_type" : "text",
+        "reg" : "\\n(\\D+)\\n"
+    },
+    "f_father_id": {
+        "col_name" : "父父馬ID",
+        "selector" : "table tr:nth-of-type(1) td:nth-of-type(2)",
+        "func": "set_url",
+        "var_type" : "text",
+        "reg" : "/horse/ped/(\\d+)/"
+    },
+    "f_father_name": {
+        "col_name" : "父父馬名",
+        "selector" : "table tr:nth-of-type(1) td:nth-of-type(2)",
+        "var_type" : "text",
+        "reg" : "\\n(\\D+)\\n"
+    },
+    "f_mother_id": {
+        "col_name" : "父母馬ID",
+        "selector" : "table tr:nth-of-type(2) td:nth-of-type(1)",
+        "func": "set_url",
+        "var_type" : "text",
+        "reg" : "/horse/ped/(\\d+)/"
+    },
+    "f_mother_name": {
+        "col_name" : "父母馬名",
+        "selector" : "table tr:nth-of-type(2) td:nth-of-type(1)",
+        "var_type" : "text",
+        "reg" : "\\n(\\D+)\\n"
+    },
+    "m_father_id": {
+        "col_name" : "母父馬ID",
+        "selector" : "table tr:nth-of-type(3) td:nth-of-type(2)",
+        "func": "set_url",
+        "var_type" : "text",
+        "reg" : "/horse/ped/(\\d+)/"
+    },
+    "m_father_name": {
+        "col_name" : "母父馬名",
+        "selector" : "table tr:nth-of-type(3) td:nth-of-type(2)",
+        "var_type" : "text",
+        "reg" : "\\n(\\D+)\\n"
+    },
+    "m_mother_id": {
+        "col_name" : "母母馬ID",
+        "selector" : "table tr:nth-of-type(4) td:nth-of-type(1)",
+        "func": "set_url",
+        "var_type" : "text",
+        "reg" : "/horse/ped/(\\d+)/"
+    },
+    "m_mother_name": {
+        "col_name" : "母母馬名",
+        "selector" : "table tr:nth-of-type(4) td:nth-of-type(1)",
+        "var_type" : "text",
+        "reg" : "\\n(\\D+)\\n"
+    }
+}

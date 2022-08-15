@@ -16,6 +16,8 @@ def parse_text(data_type, text, entity_id=None):
     """
     if data_type in ["RACE"]:
         parser = TextParser(data_type, text, entity_id, "div.RaceMainColumn")
+    elif data_type in ["HORSE"]:
+        parser = TextParser(data_type, text, entity_id, "table.blood_table")
     elif data_type in ["ENTRY", "RESULT"]:
         parser = TextParser(data_type, text, entity_id, "tr.HorseList")
     elif data_type in ["CAL"]:
@@ -80,7 +82,9 @@ class TextParser(Parser):
         work = [self._add_entity_id(row) for row in work]
         if self.data_type in ["RESULT"]:
             work = set_prize(self.soup, work) if len(work) != 0 else work
-
+        # remove blank HORSE data
+        if self.data_type in ["HORSE"]:
+            work = work if work[0]["father_id"] != "" else []
         # specific process for CAL
         if self.data_type in ["CAL"]:
             # remove blank data
