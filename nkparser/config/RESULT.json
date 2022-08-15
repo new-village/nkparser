@@ -2,12 +2,14 @@
     "result_id" : {
         "col_name" : "結果ID",
         "selector" : "null",
-        "var_type" : "text"
+        "var_type" : "text",
+        "index" : "primary_key"
     },
     "race_id" : {
         "col_name" : "レースID",
         "selector" : "null",
-        "var_type" : "text"
+        "var_type" : "text",
+        "index": "entity_id"
     },
     "rank" : {
         "col_name" : "着順",

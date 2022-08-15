@@ -1,10 +1,9 @@
 {
     "race_id" : {
         "col_name" : "レースID",
-        "selector" : "li.Active",
-        "func": "set_url",
+        "selector" : "null",
         "var_type" : "text",
-        "reg" : "\\d+"
+        "index": "entity_id"
     },
     "race_number": {
         "col_name" : "レース番号",

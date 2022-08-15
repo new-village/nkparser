@@ -53,14 +53,11 @@ class Parser():
         return val
 
     def _add_entity_id(self, line:dict):
-        for key in line.keys():
-            if key in ["race_id"]:
+        for key in self.keys:
+            if "index" in self.conf[key] and self.conf[key]["index"] == "entity_id":
                 line[key] = self.entity_id
-            elif key in ["entry_id", "result_id", "odds_id"]:
-                if line['horse_number'] is not None:
-                    line[key] = self.entity_id + str(line['horse_number']).zfill(2)
-                else:
-                    line[key] = None
+            elif 'index' in self.conf[key] and self.conf[key]["index"] == "primary_key" and line['horse_number'] is not None:
+                line[key] = self.entity_id + str(line['horse_number']).zfill(2)
         return line
 
 class TextParser(Parser):
@@ -70,20 +67,20 @@ class TextParser(Parser):
         """
         # extract data
         work = [self._parse_data(row) for row in self._base_data()]
+        # remove blank race data
+        if self.data_type in ["RACE"]:
+            work = work if work[0]["race_number"] is not None else []
         # apply function
         work = [{key: self._apply_func(key, row[key]) for key in self.keys} for row in work]
         # convert bs4 to string
         work = [{key: self._to_string(row[key]) for key in self.keys} for row in work]
         # apply format
         work = [{key: self._apply_format(key, row[key]) for key in self.keys} for row in work]
-        # special data processing for ENTRY and RESULT
-        if self.data_type in ["ENTRY", "RESULT"]:
-            work = [self._add_entity_id(row) for row in work]
+        # add Entity ID (index=entity_id) and Unique ID (index=primary_key)
+        work = [self._add_entity_id(row) for row in work]
         if self.data_type in ["RESULT"]:
             work = set_prize(self.soup, work) if len(work) != 0 else work
-        # remove blank race data
-        if self.data_type in ["RACE"]:
-            work = work if work[0][f"{self.data_type.lower()}_id"] is not None else []
+
         # specific process for CAL
         if self.data_type in ["CAL"]:
             # remove blank data
@@ -115,15 +112,14 @@ class JsonParser(Parser):
         # Parse Odds Data from JSON string
         work = json.loads(self.text)
         work = [self._add_header(record_tuple) for record_tuple in self._create_matrix(work)]
+        # remove blank odds data
+        work = work if len(work) > 1 else []
         # apply function
         work = [{key: self._apply_func(key, row[key]) for key in self.keys} for row in work]
         # Formatting Value
         work = [{key: self._apply_format(key, line[key]) for key in self.keys} for line in work]
-        # Add race_id
-        if self.data_type in ["ODDS"]:
-            work = [self._add_entity_id(row) for row in work]
-            # remove blank data
-            work = work if work[0][f"{self.data_type.lower()}_id"] is not None else []
+        # add Entity ID (index=entity_id) and Unique ID (index=primary_key)
+        work = [self._add_entity_id(row) for row in work]
 
         return work
 

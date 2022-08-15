@@ -2,12 +2,14 @@
     "odds_id" : {
         "col_name" : "オッズID",
         "selector" : "null",
-        "var_type" : "text"
+        "var_type" : "text",
+        "index" : "primary_key"
     },
     "race_id" : {
         "col_name" : "レースID",
         "selector" : "null",
-        "var_type" : "text"
+        "var_type" : "text",
+        "index": "entity_id"
     },
     "horse_number" : {
         "col_name" : "馬番",

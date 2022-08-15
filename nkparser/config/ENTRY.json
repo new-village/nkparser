@@ -2,13 +2,14 @@
     "entry_id" : {
         "col_name" : "出馬ID",
         "selector" : "null",
-        "var_type" : "text"
+        "var_type" : "text",
+        "index" : "primary_key"
     },
     "race_id" : {
         "col_name" : "レースID",
         "selector" : "null",
         "var_type" : "text",
-        "index": "race_id"
+        "index": "entity_id"
     },
     "bracket" : {
         "col_name" : "枠",
