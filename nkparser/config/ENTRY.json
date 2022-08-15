@@ -35,7 +35,7 @@
         "selector" : "td.HorseInfo",
         "func": "set_url",
         "var_type" : "text",
-        "reg" : "\\w+",
+        "reg" : "/horse/(\\w+)",
         "index": "horse_id"
     },
     "gender" : {
