@@ -58,7 +58,7 @@ class Parser():
                 line[key] = self.entity_id
             elif key in ["entry_id", "result_id", "odds_id"]:
                 if line['horse_number'] is not None:
-                    line[key] = self.entity_id + line['horse_number'].zfill(2)
+                    line[key] = self.entity_id + str(line['horse_number']).zfill(2)
                 else:
                     line[key] = None
         return line
