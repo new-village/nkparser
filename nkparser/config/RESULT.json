@@ -12,19 +12,19 @@
     "rank" : {
         "col_name" : "着順",
         "selector" : "td.Result_Num",
-        "var_type" : "text",
+        "var_type" : "int",
         "reg" : "\\d+"
     },
     "bracket" : {
         "col_name" : "枠",
         "selector" : "td[class*='Waku']",
-        "var_type" : "text",
+        "var_type" : "int",
         "reg" : "\\d+"
     },
     "horse_number" : {
         "col_name" : "馬番",
         "selector" : "td.Num.Txt_C",
-        "var_type" : "text",
+        "var_type" : "int",
         "reg" : "\\d+"
     },
     "horse_name" : {

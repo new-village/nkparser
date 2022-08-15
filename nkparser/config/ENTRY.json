@@ -7,18 +7,19 @@
     "race_id" : {
         "col_name" : "レースID",
         "selector" : "null",
-        "var_type" : "text"
+        "var_type" : "text",
+        "index": "race_id"
     },
     "bracket" : {
         "col_name" : "枠",
         "selector" : "td[class*='Waku']",
-        "var_type" : "text",
+        "var_type" : "integer",
         "reg" : "\\d+"
     },
     "horse_number" : {
         "col_name" : "馬番",
         "selector" : "td[class*='Umaban']",
-        "var_type" : "text",
+        "var_type" : "integer",
         "reg" : "\\d+"
     },
     "horse_name" : {
@@ -33,7 +34,8 @@
         "selector" : "td.HorseInfo",
         "func": "set_url",
         "var_type" : "text",
-        "reg" : "\\d+"
+        "reg" : "\\d+",
+        "index": "horse_id"
     },
     "gender" : {
         "col_name" : "性別",
