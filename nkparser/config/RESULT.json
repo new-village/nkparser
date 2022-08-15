@@ -41,7 +41,7 @@
         "selector" : "span.Horse_Name",
         "func": "set_url",
         "var_type" : "text",
-        "reg" : "\\d+"
+        "reg" : "\\w+"
     },
     "gender" : {
         "col_name" : "性別",

@@ -49,9 +49,9 @@ class TestNkLoader(unittest.TestCase):
     def test_horse(self):
         """ test methond
         """
-        nkdata = nkparser.load("HORSE", "2009102739")
+        nkdata = nkparser.load("HORSE", "2015100887")
         self.assertEqual(len(nkdata.info), 1)
-        self.assertEqual(len(nkdata.table), 28)
+        self.assertEqual(len(nkdata.table), 40)
 
     def test_horse_not_exist(self):
         """ The Load method with not existing horse_id expect to return Zero length list.
