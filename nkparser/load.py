@@ -88,6 +88,7 @@ class HorseLoader(NkLoader):
         """ Description
         """
         self.info = parse_text("HORSE", self.text, self.entity_id)
+        self.table = parse_text("HISTORY", self.text, self.entity_id)
         return self
 
 class CalLoader():

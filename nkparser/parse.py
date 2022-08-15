@@ -20,6 +20,8 @@ def parse_text(data_type, text, entity_id=None):
         parser = TextParser(data_type, text, entity_id, "table.blood_table")
     elif data_type in ["ENTRY", "RESULT"]:
         parser = TextParser(data_type, text, entity_id, "tr.HorseList")
+    elif data_type in ["HISTORY"]:
+        parser = TextParser(data_type, text, entity_id, "table.db_h_race_results tbody tr")
     elif data_type in ["CAL"]:
         parser = TextParser(data_type, text, entity_id, "table.scheLs tr")
     else:
@@ -58,7 +60,9 @@ class Parser():
         for key in self.keys:
             if "index" in self.conf[key] and self.conf[key]["index"] == "entity_id":
                 line[key] = self.entity_id
-            elif 'index' in self.conf[key] and self.conf[key]["index"] == "primary_key" and line['horse_number'] is not None:
+            elif 'index' in self.conf[key] and self.conf[key]["index"] == "primary_key" and line['horse_number'] is not None and self.data_type == "HISTORY":
+                line[key] = line['race_id'] + str(line['horse_number']).zfill(2)
+            elif 'index' in self.conf[key] and self.conf[key]["index"] == "primary_key" and line['horse_number'] is not None and self.data_type != "HISTORY":
                 line[key] = self.entity_id + str(line['horse_number']).zfill(2)
         return line
 

@@ -122,6 +122,6 @@
     "prize" : {
         "col_name" : "獲得賞金",
         "selector" : "null",
-        "var_type" : "integer"
+        "var_type" : "real"
     }
 }

@@ -33,10 +33,11 @@ def create_index_sql(data_type=None):
     elif data_type == "ODDS":
         sql = ""
     elif data_type == "RESULT":
-        sql = "CREATE INDEX IF NOT EXISTS race_id ON RESULT (race_id); z" \
+        sql = "CREATE INDEX IF NOT EXISTS race_id ON RESULT (race_id);" \
         "CREATE INDEX IF NOT EXISTS horse_id ON RESULT (horse_id);"
-    elif data_type == "HORSE":
-        sql = ""
+    elif data_type == "HISTORY":
+        sql = "CREATE INDEX IF NOT EXISTS race_id ON RESULT (race_id);" \
+        "CREATE INDEX IF NOT EXISTS horse_id ON RESULT (horse_id);"
     else:
         raise ValueError(f"Unexpected data type: {data_type}")
 

@@ -88,7 +88,7 @@
     "max_prize": {
         "col_name" : "最高賞金",
         "selector" : "div.RaceData02",
-        "var_type" : "integer",
+        "var_type" : "real",
         "reg" : "本賞金:(\\d+)"
     }
 }
