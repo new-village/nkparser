@@ -32,12 +32,20 @@ nkdata = nkparser.load("ENTRY", "201206050810")
 print(nkdata.info)
 # [{'race_id': '201206050810', 'race_number': 10, 'race_name': '有馬記念', ... }]
 print(nkdata.table)
-# [{'bracket': '7', 'horse_number': '13', 'horse_name': 'ゴールドシップ', ...}, ...]
+# [{'bracket': 7, 'horse_number': 13, 'horse_name': 'ゴールドシップ', ...}, {...}, ...]
 
 # Load ODDS
 nkdata = nkparser.load("ODDS", "201206050810")
 print(nkdata.table)
-# [{'horse_number': '1', 'tan': 51.6, 'fuku_min': 10.5, 'fuku_max': 18.7, ...}, ... ]
+# [{'horse_number': 1, 'tan': 51.6, 'fuku_min': 10.5, 'fuku_max': 18.7, ...}, {...}, ...]
+
+# Load HORSE
+nkdata = nkparser.load("HORSE", "2009102739")
+print(nkdata.info)
+# [{'horse_id': '2009102739', 'father_name': 'ステイゴールド', ... }]
+print(nkdata.table)
+# [{'race_date': '20151227', 'race_name': '有馬記念', 'rank': 8, ...}, {...}, ...]
+
 ```
   
 If you execute bulk data load, you can use `race_list` function.

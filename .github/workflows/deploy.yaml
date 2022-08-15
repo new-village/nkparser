@@ -28,6 +28,7 @@ jobs:
           twine check --strict dist/*
 
       - name: Publish package to PyPI
+        if: github.event.action == 'published'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
