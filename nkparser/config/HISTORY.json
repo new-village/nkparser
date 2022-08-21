@@ -14,7 +14,7 @@
     "race_date": {
         "col_name" : "発走日",
         "selector" : "td:nth-of-type(1)",
-        "func": "set_url",
+        "function": {"set_url": ["race_date"]},
         "var_type" : "text",
         "reg" : "\\d+"
     },
@@ -22,7 +22,7 @@
         "col_name" : "会場",
         "selector" : "td:nth-of-type(2)",
         "var_type" : "text",
-        "reg" : "函館|札幌|福島|新潟|中山|東京|中京|京都|阪神|小倉|フランス"
+        "reg" : "\\D+"
     },
     "round": {
         "col_name" : "回数",
@@ -51,14 +51,14 @@
     "race_id" : {
         "col_name" : "レースID",
         "selector" : "td:nth-of-type(5)",
-        "func": "set_url",
+        "function": {"set_url": ["race_id"]},
         "var_type" : "text",
         "reg" : "/race/(.+)/"
     },
     "race_name": {
         "col_name" : "レース名",
         "selector" : "td:nth-of-type(5)",
-        "func": "set_title",
+        "function": {"set_title": ["race_name"]},
         "var_type" : "text",
         "reg" : ".+"
     },
@@ -101,7 +101,7 @@
     "jockey_id" : {
         "col_name" : "騎手ID",
         "selector" : "td:nth-of-type(13)",
-        "func": "set_url",
+        "function": {"set_url": ["jockey_id"]},
         "var_type" : "text",
         "reg" : "/jockey/result/recent/(\\d+)/"
     },
@@ -138,7 +138,7 @@
     "rap_time": {
         "col_name" : "タイム",
         "selector" : "td:nth-of-type(18)",
-        "func" : "time_to_seconds",
+        "function": {"time_to_seconds": ["rap_time"]},
         "var_type" : "real",
         "reg" : "(\\d+.\\d+)"
     },

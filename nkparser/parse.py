@@ -46,9 +46,18 @@ class Parser():
         self.conf = load_config(data_type)
         self.keys = self.conf.keys()
 
-    def _apply_func(self, key, val):
-        if 'func' in self.conf[key] and val is not None:
-            val = globals()[self.conf[key]['func']](val)
+    def _apply_function(self, val):
+        func_list = [key for key in self.keys if "function" in self.conf[key]]
+        for key in func_list:
+            # Extract "func" dict from JSON
+            func_name = list(self.conf[key]["function"].keys())[0]
+            arg_keys = list(self.conf[key]["function"].values())[0]
+            # Create Argument Strings
+            args = ",".join([f"val[arg_keys[{i-0}]]" for i in range(0, len(arg_keys))])
+            # Execute function with Arguments
+            val[key] = globals()[func_name](eval(args))
+            # val[key] = globals()["set_title"](val["race_name"], val["race_date"])
+
         return val
 
     def _apply_format(self, key, val):
@@ -77,7 +86,7 @@ class TextParser(Parser):
         if self.data_type in ["RACE"]:
             work = work if work[0]["race_number"] is not None else []
         # apply function
-        work = [{key: self._apply_func(key, row[key]) for key in self.keys} for row in work]
+        work = [self._apply_function(row) for row in work]
         # convert bs4 to string
         work = [{key: self._to_string(row[key]) for key in self.keys} for row in work]
         # apply format
@@ -123,7 +132,7 @@ class JsonParser(Parser):
         # remove blank odds data
         work = work if len(work) > 1 else []
         # apply function
-        work = [{key: self._apply_func(key, row[key]) for key in self.keys} for row in work]
+        work = [self._apply_function(row) for row in work]
         # Formatting Value
         work = [{key: self._apply_format(key, line[key]) for key in self.keys} for line in work]
         # add Entity ID (index=entity_id) and Unique ID (index=primary_key)

@@ -14,14 +14,14 @@
     "race_name": {
         "col_name" : "レース名",
         "selector" : "div.RaceNumWrap li.Active",
-        "func": "set_title",
+        "function": {"set_title": ["race_name"]},
         "var_type" : "text",
         "reg" : ".+"
     },
     "race_date": {
         "col_name" : "発走日",
         "selector" : "div.RaceList_Item03",
-        "func": "set_url",
+        "function": {"set_url": ["race_date"]},
         "var_type" : "text",
         "reg" : "kaisai_date=(\\d+)"
     },

@@ -8,7 +8,7 @@
     "father_id": {
         "col_name" : "父馬ID",
         "selector" : "table tr:nth-of-type(1) td:nth-of-type(1)",
-        "func": "set_url",
+        "function": {"set_url": ["father_id"]},
         "var_type" : "text",
         "reg" : "/horse/ped/(\\w+)/"
     },
@@ -21,7 +21,7 @@
     "mother_id": {
         "col_name" : "母馬ID",
         "selector" : "table tr:nth-of-type(3) td:nth-of-type(1)",
-        "func": "set_url",
+        "function": {"set_url": ["mother_id"]},
         "var_type" : "text",
         "reg" : "/horse/ped/(\\w+)/"
     },
@@ -34,7 +34,7 @@
     "f_father_id": {
         "col_name" : "父父馬ID",
         "selector" : "table tr:nth-of-type(1) td:nth-of-type(2)",
-        "func": "set_url",
+        "function": {"set_url": ["f_father_id"]},
         "var_type" : "text",
         "reg" : "/horse/ped/(\\w+)/"
     },
@@ -47,7 +47,7 @@
     "f_mother_id": {
         "col_name" : "父母馬ID",
         "selector" : "table tr:nth-of-type(2) td:nth-of-type(1)",
-        "func": "set_url",
+        "function": {"set_url": ["f_mother_id"]},
         "var_type" : "text",
         "reg" : "/horse/ped/(\\w+)/"
     },
@@ -60,7 +60,7 @@
     "m_father_id": {
         "col_name" : "母父馬ID",
         "selector" : "table tr:nth-of-type(3) td:nth-of-type(2)",
-        "func": "set_url",
+        "function": {"set_url": ["m_father_id"]},
         "var_type" : "text",
         "reg" : "/horse/ped/(\\w+)/"
     },
@@ -73,7 +73,7 @@
     "m_mother_id": {
         "col_name" : "母母馬ID",
         "selector" : "table tr:nth-of-type(4) td:nth-of-type(1)",
-        "func": "set_url",
+        "function": {"set_url": ["m_mother_id"]},
         "var_type" : "text",
         "reg" : "/horse/ped/(\\w+)/"
     },

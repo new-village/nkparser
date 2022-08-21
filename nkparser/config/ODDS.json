@@ -14,8 +14,8 @@
     "horse_number" : {
         "col_name" : "馬番",
         "selector" : ".data.odds[\"1\"] | to_entries[] | .key",
-        "func" : "zero_suppress",
-        "var_type" : "text",
+        "function": {"zero_suppress": ["horse_number"]},
+        "var_type" : "integer",
         "reg" : "\\d+"
     },
     "tan" : {
