@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup, Tag
 
 from nkparser.help import *
 
-def parse_text(data_type, text, entity_id):
+def parse_text(data_type, text, entity_id=None):
     """ HTML parser by config file
     :param data_type: data type of target such as ENTRY, RESULT, ODDS and HORSE
     :param entity_id: entity id of target such as race id or horse id
@@ -17,7 +17,7 @@ def parse_text(data_type, text, entity_id):
     parser = TextParser(data_type, text, entity_id)
     return parser.exec()
 
-def parse_json(data_type, text, entity_id):
+def parse_json(data_type, text, entity_id=None):
     """ JSON parser by config file
     """
     parser = JsonParser(data_type, text, entity_id)
