@@ -7,7 +7,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='nkparser',
-    version='1.4.0',
+    version='1.4.1',
     author='new-village',
     url='https://github.com/new-village/nkparser',
     description='nkparser is a simple scraping library for netkeiba.com',
