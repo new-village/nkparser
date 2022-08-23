@@ -13,6 +13,13 @@ class TestNkLoader(unittest.TestCase):
         self.assertEqual(len(nkdata.info), 1)
         self.assertEqual(len(nkdata.table), 16)
 
+    def test_entry_include_cancel(self):
+        """ test methond
+        """
+        nkdata = nkparser.load("ENTRY", "202210040211")
+        self.assertEqual(len(nkdata.info), 1)
+        self.assertEqual(len(nkdata.table), 16)
+
     def test_entry_not_exist(self):
         """ The Load method with not existing race_id expect to return Zero length list.
         """
@@ -36,14 +43,12 @@ class TestNkLoader(unittest.TestCase):
         """ test methond
         """
         nkdata = nkparser.load("RESULT", "201206050810")
-        self.assertEqual(len(nkdata.info), 1)
         self.assertEqual(len(nkdata.table), 16)
 
     def test_result_not_exist(self):
         """ The Load method with not existing race_id expect to return Zero length list.
         """
         nkdata = nkparser.load("RESULT", "201206050812")
-        self.assertEqual(len(nkdata.info), 0)
         self.assertEqual(len(nkdata.table), 0)
 
     def test_horse(self):

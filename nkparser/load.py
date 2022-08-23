@@ -46,8 +46,8 @@ class EntryLoader(NkLoader):
     def exec(self):
         """ Description
         """
-        self.info = parse_text("RACE", self.text, self.entity_id)
-        self.table = parse_text("ENTRY", self.text, self.entity_id)
+        self.info = parse_text("race", self.text, self.entity_id)
+        self.table = parse_text("entry", self.text, self.entity_id)
         return self
 
 class OddsLoader(NkLoader):
@@ -60,21 +60,20 @@ class OddsLoader(NkLoader):
     def exec(self):
         """ Description
         """
-        self.table = parse_json("ODDS", self.text, self.entity_id)
+        self.table = parse_json("odds", self.text, self.entity_id)
         return self
 
 class ResultLoader(NkLoader):
     """ Result data Loader """
     def __init__(self, data_type, entity_id):
         super().__init__(data_type, entity_id)
-        base_url = "https://race.netkeiba.com/race/result.html?race_id={ID}"
+        base_url = "https://db.netkeiba.com/race/{ID}/"
         self.text = load_html(create_url(base_url, self.entity_id))
 
     def exec(self):
         """ Description
         """
-        self.info = parse_text("RACE", self.text, self.entity_id)
-        self.table = parse_text("RESULT", self.text, self.entity_id)
+        self.table = parse_text("result", self.text, self.entity_id)
         return self
 
 class HorseLoader(NkLoader):
@@ -87,8 +86,8 @@ class HorseLoader(NkLoader):
     def exec(self):
         """ Description
         """
-        self.info = parse_text("HORSE", self.text, self.entity_id)
-        self.table = parse_text("HISTORY", self.text, self.entity_id)
+        self.info = parse_text("horse", self.text, self.entity_id)
+        self.table = parse_text("history", self.text, self.entity_id)
         return self
 
 class CalLoader():
@@ -101,5 +100,5 @@ class CalLoader():
     def exec(self):
         """ Description
         """
-        self.table = parse_text("CAL", self.text)
+        self.table = parse_text("cal", self.text)
         return self.table

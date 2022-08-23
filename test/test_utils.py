@@ -10,7 +10,7 @@ class TestUtilities(unittest.TestCase):
     def test_create_table_sql(self):
         """ test_create_table_sql
         """
-        for data_type in ['ENTRY', 'ODDS', 'RACE', 'RESULT', 'HORSE', 'HISTORY']:
+        for data_type in ["entry", "odds", "race", "result", "horse", "history"]:
             sql_strings = create_table_sql(data_type)
 
             # Compare result
@@ -20,7 +20,7 @@ class TestUtilities(unittest.TestCase):
     def test_create_index_sql(self):
         """ test_create_index_sql
         """
-        for data_type in ['ENTRY', 'RESULT', 'HISTORY']:
+        for data_type in ["entry", "result", "history"]:
             sql_strings = create_index_sql(data_type)
 
             # Compare result

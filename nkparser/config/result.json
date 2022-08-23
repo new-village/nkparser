@@ -1,0 +1,140 @@
+{
+    "property": {
+        "entry": "result",
+        "url": "https://db.netkeiba.com/race/{ID}/",
+        "mode": "html",
+        "selector": "table.race_table_01.nk_tb_common tr:not([class='txt_c'])",
+        "validator": "table.race_table_01"
+    },
+    "columns": [
+        {
+            "col_name": "id", 
+            "alias": "結果ID",
+            "selector": "null",
+            "post_func": {"name": "create_uid", "args": ["race_id", "horse_number"]},
+            "var_type": "text"
+        },{
+            "col_name": "race_id", 
+            "alias": "レースID",
+            "selector": "null",
+            "var_type": "text", 
+            "index": "entity_id"
+        },{
+            "col_name": "rank",
+            "alias": "着順",
+            "selector": "td:nth-of-type(1)",
+            "var_type": "integer",
+            "reg": "\\d+"
+        },{
+            "col_name": "bracket",
+            "alias": "枠",
+            "selector": "td:nth-of-type(2)",
+            "var_type": "integer",
+            "reg": "\\d+"
+        },{
+            "col_name": "horse_number",
+            "alias": "馬番",
+            "selector": "td:nth-of-type(3)",
+            "var_type": "integer",
+            "reg": "\\d+"
+        },{
+            "col_name": "horse_id",
+            "alias": "馬ID",
+            "selector" : "td:nth-of-type(4) a",
+            "pre_func": {"name": "get_url", "args": ["horse_id"]},
+            "var_type" : "text",
+            "reg" : "/horse/(\\w+)",
+            "index": "horse_id"
+        },{
+            "col_name": "horse_name",
+            "alias": "馬名",
+            "selector": "td:nth-of-type(4) a",
+            "pre_func": {"name": "get_title", "args": ["horse_name"]},
+            "var_type": "text"
+        },{
+            "col_name": "gender",
+            "alias": "性別",
+            "selector": "td:nth-of-type(5)",
+            "var_type": "text",
+            "reg": "[牡牝騸セ]"
+        },{
+            "col_name": "age",
+            "alias": "馬齢",
+            "selector": "td:nth-of-type(5)",
+            "var_type": "integer",
+            "reg": "\\d+"
+        },{
+            "col_name": "burden",
+            "alias": "斤量",
+            "selector": "td:nth-of-type(6)",
+            "var_type": "real",
+            "reg": "\\d+.?\\d?"
+        },{
+            "col_name": "jockey_id",
+            "alias": "騎手ID",
+            "selector" : "td:nth-of-type(7) a",
+            "pre_func": {"name": "get_url", "args": ["jockey_id"]},
+            "var_type" : "text",
+            "reg" : "/jockey/result/recent/(\\w+)/",
+            "index": "jockey_id"
+        },{
+            "col_name": "jackey_name",
+            "alias": "騎手名",
+            "selector": "td:nth-of-type(7) a",
+            "pre_func": {"name": "get_title", "args": ["jackey_name"]},
+            "var_type": "text",
+            "reg" : "\\D+"
+        },{
+            "col_name" : "rap_time",
+            "alias": "タイム",
+            "selector" : "td:nth-of-type(8)",
+            "pre_func": {"name": "time_to_seconds", "args": ["rap_time"]},
+            "var_type" : "real",
+            "reg" : "(\\d+.\\d+)"    
+        },{
+            "col_name" : "passage_rank",
+            "alias": "通過順",
+            "selector" : "td:not([class])",
+            "var_type" : "text",
+            "reg" : ".*"
+        },{
+            "col_name" : "last_3f",
+            "alias": "後3F",
+            "selector" : "td.txt_c span",
+            "var_type" : "real",
+            "reg" : "(\\d+.\\d+)"
+        },{
+            "col_name": "weight",
+            "alias": "馬体重",
+            "selector": "td:nth-of-type(12)",
+            "var_type": "integer",
+            "reg": "(\\d+)\\([+-]?\\d*\\)"
+        },{
+            "col_name": "weight_diff",
+            "alias": "増減",
+            "selector": "td:nth-of-type(12)",
+            "var_type": "integer",
+            "reg": "\\d+\\(([+-]?\\d+)\\)"
+        },{
+            "col_name": "trainer_id",
+            "alias": "厩舎ID",
+            "selector" : "td:nth-of-type(13) a",
+            "pre_func": {"name": "get_url", "args": ["trainer_id"]},
+            "var_type" : "text",
+            "reg" : "/trainer/result/recent/(\\w+)/"
+        },{
+            "col_name": "trainer_name",
+            "alias": "厩舎名",
+            "selector": "td:nth-of-type(13) a",
+            "pre_func": {"name": "get_title", "args": ["trainer_name"]},
+            "var_type": "text",
+            "reg" : "\\D+"
+        },{
+            "col_name": "prize",
+            "alias": "賞金（万円）",
+            "selector": "td.txt_r:last-child",
+            "var_type": "real",
+            "reg" : "\\d{1,3},\\d{3}\\.\\d{1}|\\d{1,3}\\.\\d{1}"
+        }
+    ]
+}

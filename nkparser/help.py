@@ -105,15 +105,22 @@ def zero_suppress(arg:str) -> str:
     """
     return str(int(arg))
 
-def set_title(soup:Tag) -> str:
+def get_title(soup:Tag) -> str:
     """ description
     """
-    return soup.a.get("title") if soup.a is not None else None
+    return soup.get("title") if soup is not None else None
 
-def set_url(soup:Tag) -> str:
+def get_url(soup:Tag) -> str:
     """ description
     """
-    return soup.a.get("href") if soup.a is not None else None
+    return soup.get("href") if soup is not None else None
+
+def create_uid(value:tuple) -> str:
+    """ Concatinating entry_id and 2 digits horse_number
+    :param value: Tuple object includes Entity ID of str and Horse Number of int.
+    :return: Str object
+    """
+    return value[0] + str(value[1]).zfill(2)
 
 def set_prize(soup:Tag, run:list) -> list:
     """ description

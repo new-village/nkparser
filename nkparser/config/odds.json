@@ -1,0 +1,49 @@
+{
+    "property": {
+        "entry": "odds",
+        "url": "https://race.netkeiba.com/api/api_get_jra_odds.html?race_id={ID}&type=1&action=init",
+        "mode": "json",
+        "selector": "",
+        "validator": ""
+    },
+    "columns": [
+        {
+            "col_name": "id", 
+            "alias": "オッズID",
+            "selector": "null",
+            "post_func": {"name": "create_uid", "args": ["race_id", "horse_number"]},
+            "var_type": "text"
+        },{
+            "col_name": "race_id", 
+            "alias": "レースID",
+            "selector": "null",
+            "var_type": "text", 
+            "index": "entity_id"
+        },{
+            "col_name": "horse_number",
+            "alias": "馬番",
+            "selector": ".data.odds[\"1\"] | to_entries[] | .key",
+            "pre_func": {"name": "zero_suppress", "args": ["horse_number"]},
+            "var_type": "integer",
+            "reg": "\\d+"
+        },{
+            "col_name": "win",
+            "alias": "単勝",
+            "selector": ".data.odds[\"1\"][][0]",
+            "var_type": "real",
+            "reg": "\\d+.?\\d?"
+        },{
+            "col_name": "show_min",
+            "alias": "複勝（最小）",
+            "selector": ".data.odds[\"2\"][][0]",
+            "var_type": "real",
+            "reg": "\\d+.?\\d?"
+        },{
+            "col_name": "show_max",
+            "alias": "複勝（最大）",
+            "selector": ".data.odds[\"2\"][][1]",
+            "var_type": "real",
+            "reg": "\\d+.?\\d?"
+        }
+    ]
+}

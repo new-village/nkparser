@@ -12,8 +12,8 @@ def create_table_sql(data_type=None):
         raise SystemExit("There is no race_id in HTML")
 
     # load config file
-    keys = [key for key in load_config(data_type).keys()]
-    types = [val['var_type'] for val in load_config(data_type).values()]
+    keys = [key["col_name"] for key in load_config(data_type)["columns"]]
+    types = [tp["var_type"] for tp in load_config(data_type)["columns"]]
     # Create comma separated strings
     cols = [k + ' ' + v for k, v in zip(keys, types)]
     # Add PRIMARY KEY string to first column
@@ -27,15 +27,15 @@ def create_index_sql(data_type=None):
     :param data_type: Data Type is identifier of data types such as ENTRY, ODDS, RACE and RESULT.
     """
     # Validating Arguments
-    if data_type == "ENTRY":
+    if data_type == "entry":
         sql = "CREATE INDEX IF NOT EXISTS race_id ON ENTRY (race_id); " \
         "CREATE INDEX IF NOT EXISTS horse_id ON ENTRY (horse_id);"
-    elif data_type == "ODDS":
+    elif data_type == "odds":
         sql = ""
-    elif data_type == "RESULT":
+    elif data_type == "result":
         sql = "CREATE INDEX IF NOT EXISTS race_id ON RESULT (race_id);" \
         "CREATE INDEX IF NOT EXISTS horse_id ON RESULT (horse_id);"
-    elif data_type == "HISTORY":
+    elif data_type == "history":
         sql = "CREATE INDEX IF NOT EXISTS race_id ON RESULT (race_id);" \
         "CREATE INDEX IF NOT EXISTS horse_id ON RESULT (horse_id);"
     else:

@@ -1,0 +1,19 @@
+{
+    "property": {
+        "entry": "cal",
+        "url": "https://keiba.yahoo.co.jp/schedule/list/{year}/?month={month}",
+        "mode": "html",
+        "selector": "table.scheLs tr:nth-of-type(n+2)",
+        "validator": "table.scheLs tr:nth-of-type(n+2)"
+    },
+    "columns": [
+        {
+            "col_name": "race_id", 
+            "alias": "レースID",
+            "selector": "td[rowspan]:not([class]) > a",
+            "pre_func": {"name": "get_url", "args": ["race_id"]},
+            "var_type": "text",
+            "reg" : "/race/list/(\\d{8})/"
+        }
+    ]
+}

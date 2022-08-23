@@ -1,0 +1,109 @@
+{
+    "property": {
+        "entry": "entry",
+        "url": "https://race.netkeiba.com/race/shutuba.html?race_id={ID}",
+        "mode": "html",
+        "selector": "tr.HorseList",
+        "validator": "tr.HorseList"
+    },
+    "columns": [
+        {
+            "col_name": "id", 
+            "alias": "出馬ID",
+            "selector": "null",
+            "post_func": {"name": "create_uid", "args": ["race_id", "horse_number"]},
+            "var_type": "text"
+        },{
+            "col_name": "race_id", 
+            "alias": "レースID",
+            "selector": "null",
+            "var_type": "text", 
+            "index": "entity_id"
+        },{
+            "col_name": "bracket",
+            "alias": "枠",
+            "selector": "td[class*='Waku']",
+            "var_type": "integer",
+            "reg": "\\d+"
+        },{
+            "col_name": "horse_number",
+            "alias": "馬番",
+            "selector": "td[class*='Umaban']",
+            "var_type": "integer",
+            "reg": "\\d+"
+        },{
+            "col_name": "horse_id",
+            "alias": "馬ID",
+            "selector" : "td.HorseInfo a",
+            "pre_func": {"name": "get_url", "args": ["horse_id"]},
+            "var_type" : "text",
+            "reg" : "/horse/(\\w+)",
+            "index": "horse_id"
+        },{
+            "col_name": "horse_name",
+            "alias": "馬名",
+            "selector": "td.HorseInfo a",
+            "pre_func": {"name": "get_title", "args": ["horse_name"]},
+            "var_type": "text"
+        },{
+            "col_name": "gender",
+            "alias": "性別",
+            "selector": "td.Barei, td span.Age",
+            "var_type": "text",
+            "reg": "[牡牝騸セ]"
+        },{
+            "col_name": "age",
+            "alias": "馬齢",
+            "selector": "td.Barei, td span.Age",
+            "var_type": "integer",
+            "reg": "\\d+"
+        },{
+            "col_name": "burden",
+            "alias": "斤量",
+            "selector": "td[class='Txt_C'], td[class='Cancel_NoData Txt_C']",
+            "var_type": "real",
+            "reg": "\\d+.?\\d?"
+        },{
+            "col_name": "jockey_id",
+            "alias": "騎手ID",
+            "selector" : "td.Jockey a",
+            "pre_func": {"name": "get_url", "args": ["jockey_id"]},
+            "var_type" : "text",
+            "reg" : "https://db.netkeiba.com/jockey/result/recent/(\\w+)/",
+            "index": "jockey_id"
+        },{
+            "col_name": "jackey_name",
+            "alias": "騎手名",
+            "selector": "td.Jockey a",
+            "pre_func": {"name": "get_title", "args": ["jackey_name"]},
+            "var_type": "text",
+            "reg" : "\\D+"
+        },{
+            "col_name": "trainer_id",
+            "alias": "厩舎ID",
+            "selector" : "td.Trainer a",
+            "pre_func": {"name": "get_url", "args": ["trainer_id"]},
+            "var_type" : "text",
+            "reg" : "https://db.netkeiba.com/trainer/result/recent/(\\w+)/"
+        },{
+            "col_name": "trainer_name",
+            "alias": "厩舎名",
+            "selector": "td.Trainer a",
+            "pre_func": {"name": "get_title", "args": ["trainer_name"]},
+            "var_type": "text",
+            "reg" : "\\D+"
+        },{
+            "col_name": "weight",
+            "alias": "馬体重",
+            "selector": "td.Weight",
+            "var_type": "integer",
+            "reg": "(\\d+)\\([+-]?\\d*\\)"
+        },{
+            "col_name": "weight_diff",
+            "alias": "増減",
+            "selector": "td.Weight small",
+            "var_type": "integer",
+            "reg": "([+-]?\\d+)"
+        }
+    ]
+}

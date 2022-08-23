@@ -1,0 +1,104 @@
+{
+    "property": {
+        "entry": "race",
+        "url": "https://race.netkeiba.com/race/shutuba.html?race_id={ID}",
+        "mode": "html",
+        "selector": "div.RaceMainColumn",
+        "validator": "div.RaceList_NameBox"
+    },
+    "columns": [
+        {
+            "col_name": "id", 
+            "alias": "レースID",
+            "selector": "null",
+            "var_type": "text", 
+            "index": "entity_id"
+        },{
+            "col_name": "race_number",
+            "alias": "レース番号",
+            "selector": "div.RaceNumWrap li.Active",
+            "var_type": "integer",
+            "reg": "(\\d+)R"
+        },{
+            "col_name": "race_name",
+            "alias": "レース名",
+            "selector": "div.RaceNumWrap li.Active a",
+            "pre_func": {"name": "get_title", "args": ["race_name"]},
+            "var_type": "text",
+            "reg": ".+"
+        },{
+            "col_name": "race_date",
+            "alias": "発走日",
+            "selector" : "div.RaceList_Item03 a",
+            "pre_func": {"name": "get_url", "args": ["race_date"]},
+            "var_type" : "text",
+            "reg" : "kaisai_date=(\\d+)"
+        },{
+            "col_name" : "race_time",
+            "alias": "発走時刻",
+            "selector" : "div.RaceData01",
+            "var_type" : "text",
+            "reg" : "(\\d+:\\d+)発走"
+        },{
+            "col_name" : "type",
+            "alias": "コース種別",
+            "selector" : "div.RaceData01",
+            "var_type" : "text",
+            "reg" : "[芝ダ障]"
+        },{
+            "col_name" : "length",
+            "alias": "コース距離",
+            "selector" : "div.RaceData01",
+            "var_type" : "integer",
+            "reg" : "\\d{4}"
+        },{
+            "col_name" : "handed",
+            "alias": "回り",
+            "selector" : "div.RaceData01",
+            "var_type" : "text",
+            "reg" : "(右|左)"
+        },{
+            "col_name": "weather",
+            "alias": "天候",
+            "selector" : "div.RaceData01",
+            "var_type" : "text",
+            "reg" : "晴|曇|小雨|雨|小雪|雪"
+        },{
+            "col_name" : "condition",
+            "alias": "馬場",
+            "selector" : "div.RaceData01",
+            "var_type" : "text",
+            "reg" : "良|稍|稍重|重|不良"
+        },{
+            "col_name" : "place",
+            "alias": "会場",
+            "selector" : "div.RaceData02",
+            "var_type" : "text",
+            "reg" : "函館|札幌|福島|新潟|中山|東京|中京|京都|阪神|小倉"
+        },{
+            "col_name" : "round",
+            "alias": "回数",
+            "selector" : "div.RaceData02",
+            "var_type" : "integer",
+            "reg" : "(\\d+)回"
+        },{
+            "col_name" : "days",
+            "alias": "開催日数",
+            "selector" : "div.RaceData02",
+            "var_type" : "integer",
+            "reg" : "(\\d+)日目"
+        },{
+            "col_name" : "head_count",
+            "alias": "出走頭数",
+            "selector" : "div.RaceData02",
+            "var_type" : "integer",
+            "reg" : "(\\d+)頭"
+        },{
+            "col_name" : "max_prize",
+            "alias": "最高賞金",
+            "selector" : "div.RaceData02",
+            "var_type" : "real",
+            "reg" : "本賞金:(\\d+)"
+        }
+    ]
+}
