@@ -50,7 +50,13 @@
             "alias": "コース距離",
             "selector" : "div.RaceData01",
             "var_type" : "integer",
-            "reg" : "\\d{4}"
+            "reg" : "\\d{3,4}"
+        },{
+            "col_name" : "smile",
+            "alias": "距離分類",
+            "selector" : "null",
+            "post_func": {"name": "classify_length", "args": ["length"]},
+            "var_type" : "text"
         },{
             "col_name" : "handed",
             "alias": "回り",

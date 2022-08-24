@@ -92,6 +92,12 @@
             "var_type" : "real",
             "reg" : "(\\d+.\\d+)"    
         },{
+            "col_name" : "diff_time",
+            "alias": "着差",
+            "selector" : "null",
+            "post_func": {"name": "set_diff_time", "args": ["rank", "rap_time"]},
+            "var_type" : "real"    
+        },{
             "col_name" : "passage_rank",
             "alias": "通過順",
             "selector" : "td:not([class])",

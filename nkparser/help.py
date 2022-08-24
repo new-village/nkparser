@@ -9,6 +9,7 @@ from bs4 import Tag
 
 import nkparser
 
+RAP_TIME = 0.0
 
 def load_html(url):
     """ load netkeiba HTML
@@ -122,13 +123,34 @@ def create_uid(value:tuple) -> str:
     """
     return value[0] + str(value[1]).zfill(2)
 
-def set_prize(soup:Tag, run:list) -> list:
+def set_diff_time(value:tuple) -> float:
     """ description
     """
-    # Add prize
-    prize_text = formatter(r'本賞金:(.+)万円', soup.select_one('.RaceData02').text, 'str').split(',')
-    prize = [int(p) for p in prize_text] + [0] * (len(run) - len(prize_text))
-    return [{**r, **p} for r, p in zip(run, [{"prize": p} for p in prize])]
+    if value[0] == 1:
+        global RAP_TIME
+        RAP_TIME = value[1]
+        diff_time = 0
+    else:
+        diff_time = value[1] - RAP_TIME
+
+    return round(diff_time, 1)
+
+def classify_length(length:int) -> str:
+    """ description
+    """
+    if length <= 1300:
+        classification = "Sprint"
+    elif 1300 < length < 1900:
+        classification = "Mile"
+    elif 1900 <= length <= 2100:
+        classification = "Intermediate"
+    elif 2100 < length <= 2700:
+        classification = "Long"
+    elif length > 2700:
+        classification = "Extended"
+
+    return classification
+
 
 def load_config(data_type:str) -> str:
     """ The function loads configuration file from config directory
