@@ -138,6 +138,18 @@
             "var_type": "integer",
             "reg" : "\\d{3,4}"
         },{
+            "col_name" : "length_class",
+            "alias": "距離分類",
+            "selector" : "null",
+            "post_func": {"name": "classify_length", "args": ["length"]},
+            "var_type" : "text"
+        },{
+            "col_name" : "course",
+            "alias": "コース",
+            "selector" : "null",
+            "post_func": {"name": "concatinate", "args": ["place", "type", "length"]},
+            "var_type" : "text"
+        },{
             "col_name": "condition",
             "alias": "馬場",
             "selector": "td:nth-of-type(16)",
