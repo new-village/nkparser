@@ -52,7 +52,7 @@
             "var_type" : "integer",
             "reg" : "\\d{3,4}"
         },{
-            "col_name" : "smile",
+            "col_name" : "length_class",
             "alias": "距離分類",
             "selector" : "null",
             "post_func": {"name": "classify_length", "args": ["length"]},

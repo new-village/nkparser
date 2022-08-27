@@ -138,15 +138,15 @@ def set_diff_time(value:tuple) -> float:
 def classify_length(length:int) -> str:
     """ description
     """
-    if length <= 1300:
+    if length < 1400:
         classification = "Sprint"
-    elif 1300 < length < 1900:
+    elif 1400 <= length < 1800:
         classification = "Mile"
-    elif 1900 <= length <= 2100:
+    elif 1800 <= length < 2200:
         classification = "Intermediate"
-    elif 2100 < length <= 2700:
+    elif 2200 <= length < 2800:
         classification = "Long"
-    elif length > 2700:
+    elif length >= 2800:
         classification = "Extended"
 
     return classification
