@@ -50,7 +50,6 @@ def create_url(base_url, entity_id):
     """
     return base_url.replace('{ID}', entity_id)
 
-
 def formatter(reg, target:str, type_string:str):
     '''
     Convert string to defined type
@@ -151,6 +150,12 @@ def classify_length(length:int) -> str:
 
     return classification
 
+def concatinate(value:tuple) -> str:
+    """ Concatinate arguments
+    :param value: Tuple of strings to be concatinated.
+    :return: Str object
+    """
+    return "".join(map(str, value))
 
 def load_config(data_type:str) -> str:
     """ The function loads configuration file from config directory

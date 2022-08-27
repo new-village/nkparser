@@ -82,6 +82,12 @@
             "var_type" : "text",
             "reg" : "函館|札幌|福島|新潟|中山|東京|中京|京都|阪神|小倉"
         },{
+            "col_name" : "course",
+            "alias": "コース",
+            "selector" : "null",
+            "post_func": {"name": "concatinate", "args": ["place", "type", "length"]},
+            "var_type" : "text"
+        },{
             "col_name" : "round",
             "alias": "回数",
             "selector" : "div.RaceData02",
