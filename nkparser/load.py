@@ -3,7 +3,7 @@
 import time
 from random import randrange
 
-from nkparser.help import create_url, load_html, load_json
+from nkparser.help import create_url, load_config, load_html, load_json
 from nkparser.parse import parse_json, parse_text
 
 
@@ -13,13 +13,13 @@ def load(data_type, entity_id):
     :param entity_id: entity id of target such as race id or horse id
     :return: :class:`Response <Response>` object
     """
-    if data_type == "ENTRY":
+    if data_type == "entry":
         loader = EntryLoader(data_type, entity_id)
-    elif data_type == "ODDS":
+    elif data_type == "odds":
         loader = OddsLoader(data_type, entity_id)
-    elif data_type == "RESULT":
+    elif data_type == "result":
         loader = ResultLoader(data_type, entity_id)
-    elif data_type == "HORSE":
+    elif data_type == "horse":
         loader = HorseLoader(data_type, entity_id)
     else:
         raise ValueError(f"Unexpected data type: {data_type}")
@@ -31,18 +31,17 @@ class NkLoader():
     def __init__(self, data_type, entity_id):
         self.data_type = data_type
         self.entity_id = entity_id
-        self.text = None
+        url = load_config(self.data_type)['property']['url']
+        if self.data_type in ['odds']:
+            self.text = load_json(create_url(url, self.entity_id))
+        else:
+            self.text = load_html(create_url(url, self.entity_id))
         self.info = None
         self.table = None
         time.sleep(randrange(3, 6))
 
 class EntryLoader(NkLoader):
     """ Entry data Loader """
-    def __init__(self, data_type, entity_id):
-        super().__init__(data_type, entity_id)
-        base_url = "https://race.netkeiba.com/race/shutuba.html?race_id={ID}"
-        self.text = load_html(create_url(base_url, self.entity_id))
-
     def exec(self):
         """ Description
         """
@@ -52,11 +51,6 @@ class EntryLoader(NkLoader):
 
 class OddsLoader(NkLoader):
     """ Odds data Loader """
-    def __init__(self, data_type, entity_id):
-        super().__init__(data_type, entity_id)
-        base_url = "https://race.netkeiba.com/api/api_get_jra_odds.html?race_id={ID}&type=1&action=init"
-        self.text = load_json(create_url(base_url, self.entity_id))
-
     def exec(self):
         """ Description
         """
@@ -65,11 +59,6 @@ class OddsLoader(NkLoader):
 
 class ResultLoader(NkLoader):
     """ Result data Loader """
-    def __init__(self, data_type, entity_id):
-        super().__init__(data_type, entity_id)
-        base_url = "https://db.netkeiba.com/race/{ID}/"
-        self.text = load_html(create_url(base_url, self.entity_id))
-
     def exec(self):
         """ Description
         """
@@ -78,11 +67,6 @@ class ResultLoader(NkLoader):
 
 class HorseLoader(NkLoader):
     """ Horse data Loader """
-    def __init__(self, data_type, entity_id):
-        super().__init__(data_type, entity_id)
-        base_url = "https://db.netkeiba.com/horse/{ID}"
-        self.text = load_html(create_url(base_url, self.entity_id))
-
     def exec(self):
         """ Description
         """
