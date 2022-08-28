@@ -6,6 +6,7 @@ import re
 
 import requests
 from bs4 import Tag
+from datetime import datetime as dt
 
 import nkparser
 
@@ -156,6 +157,13 @@ def concatinate(value:tuple) -> str:
     :return: Str object
     """
     return "".join(map(str, value))
+
+def fmt_date(dt_str:str) -> str:
+    """ Convert YYYYMMDD date string to YYYY-MM-DD string
+    :param fmt_date: YYYYMMDD date string
+    :return: Str object
+    """
+    return dt.strptime(dt_str, "%Y%m%d").strftime('%Y-%m-%d')
 
 def load_config(data_type:str) -> str:
     """ The function loads configuration file from config directory

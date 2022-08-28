@@ -31,6 +31,7 @@
             "alias": "発走日",
             "selector" : "div.RaceList_Item03 a",
             "pre_func": {"name": "get_url", "args": ["race_date"]},
+            "post_func": {"name": "fmt_date", "args": ["race_date"]},
             "var_type" : "text",
             "reg" : "kaisai_date=(\\d+)"
         },{
