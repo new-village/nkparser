@@ -1,9 +1,13 @@
 '''load.py
 '''
+import json
+import re
 import time
 from random import randrange
 
-from nkparser.help import create_url, load_config, load_html, load_json
+import requests
+
+from nkparser.help import load_config
 from nkparser.parse import parse_json, parse_text
 
 
@@ -26,16 +30,47 @@ def load(data_type, entity_id):
 
     return loader.exec()
 
+def load_contents(url, mode="html"):
+    """ Load contents
+    """
+    try:
+        # Request Contents
+        response = requests.get(url)
+        response.encoding = response.apparent_encoding
+        response = response.text
+    except requests.exceptions.RequestException as exp:
+        raise SystemExit(f"Request to {url} has been failure") from exp
+
+    return odds_error_check(response, url) if mode == "json" else response
+
+def odds_error_check(response, url):
+    """ Check odds json error
+    """
+    entity_id = re.findall(r"\d{12}", url)[0]
+
+    # Confirme Data Format
+    if json.loads(response)['status'] == 'middle':
+        # HTTP Response is not 200 (Normal)
+        raise SystemExit(f"There is no odds data: {entity_id}")
+
+    return response
+
+def create_url(base_url, entity_id):
+    """ repleace entity id from base_url
+    :param base_url: base url for replace target
+    :param entity_id: replace item for {ID} string
+    :return str
+    """
+    return base_url.replace('{ID}', entity_id)
+
 class NkLoader():
     """ base class of Loaders """
     def __init__(self, data_type, entity_id):
         self.data_type = data_type
         self.entity_id = entity_id
-        url = load_config(self.data_type)['property']['url']
-        if self.data_type in ['odds']:
-            self.text = load_json(create_url(url, self.entity_id))
-        else:
-            self.text = load_html(create_url(url, self.entity_id))
+        self.property = load_config(self.data_type)["property"]
+        url = create_url(self.property["url"], entity_id)
+        self.text = load_contents(url, self.property["mode"])
         self.info = None
         self.table = None
         time.sleep(randrange(3, 6))
@@ -78,7 +113,7 @@ class CalLoader():
     """ Entry data Loader """
     def __init__(self, year, month):
         url = f"https://keiba.yahoo.co.jp/schedule/list/{year}/?month={month}"
-        self.text = load_html(url)
+        self.text = load_contents(url)
         self.table = None
 
     def exec(self):
