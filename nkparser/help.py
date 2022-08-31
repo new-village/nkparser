@@ -93,8 +93,10 @@ def time_to_seconds(arg) -> str:
     time_list = arg.text.split(':')
     if len(time_list) == 2:
         return str(float(time_list[0]) * 60 + float(time_list[1]))
+    if len(time_list) == 1:
+        return time_list[0]
     else:
-        return arg
+        return arg.text
 
 def zero_suppress(arg:str) -> str:
     """
