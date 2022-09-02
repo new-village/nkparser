@@ -3,39 +3,6 @@
 import unittest
 import nkparser
 
-class TestOddsNkLoader(unittest.TestCase):
-    """ Test NkLoader with odds argument
-    """
-    @classmethod
-    def setUpClass(cls):
-        # Load Staygload who has overseas race history and abort race history
-        cls.success_case = nkparser.load("odds", "202210040602")
-        # Load Unexist horse ID
-        cls.error_case = nkparser.load("odds", "201206050812")
-
-    def test_odds(self):
-        """ test methond
-        """
-        self.assertEqual(len(self.success_case.table), 16)
-
-    def test_odds_not_exist(self):
-        """ The Load method with not existing race_id expect to return Zero length list.
-        """
-        self.assertEqual(len(self.error_case.table), 0)
-
-    def test_odds_parse(self):
-        """ testing race data compalison
-        """
-        expect = {
-            'id': '20221004060201',
-            'race_id': '202210040602',
-            'horse_number': 1,
-            'win': 19.4,
-            'show_min': 3.9,
-            'show_max': 7.4
-        }
-        self.assertDictEqual(self.success_case.table[0], expect)
-
 class TestEntryNkLoader(unittest.TestCase):
     """ Test NkLoader with Entry arguments
     """
@@ -126,6 +93,39 @@ class TestEntryNkLoader(unittest.TestCase):
         }
         self.assertDictEqual(self.success_case.table[7], expect)
 
+class TestOddsNkLoader(unittest.TestCase):
+    """ Test NkLoader with odds argument
+    """
+    @classmethod
+    def setUpClass(cls):
+        # Load Staygload who has overseas race history and abort race history
+        cls.success_case = nkparser.load("odds", "202210040602")
+        # Load Unexist horse ID
+        cls.error_case = nkparser.load("odds", "201206050812")
+
+    def test_odds(self):
+        """ test methond
+        """
+        self.assertEqual(len(self.success_case.table), 16)
+
+    def test_odds_not_exist(self):
+        """ The Load method with not existing race_id expect to return Zero length list.
+        """
+        self.assertEqual(len(self.error_case.table), 0)
+
+    def test_odds_parse(self):
+        """ testing race data compalison
+        """
+        expect = {
+            'id': '20221004060201',
+            'race_id': '202210040602',
+            'horse_number': 1,
+            'win': 19.4,
+            'show_min': 3.9,
+            'show_max': 7.4
+        }
+        self.assertDictEqual(self.success_case.table[0], expect)
+
 class TestResultNkLoader(unittest.TestCase):
     """ Test NkLoader with result arguments
     """
@@ -180,7 +180,7 @@ class TestResultNkLoader(unittest.TestCase):
         expect = {
             'id': '20010804021104',
             'race_id': '200108040211',
-            'rank': 0,
+            'rank': None,
             'bracket': 4,
             'horse_number': 4,
             'horse_id': '1996102442',
@@ -190,10 +190,10 @@ class TestResultNkLoader(unittest.TestCase):
             'burden': 59.0,
             'jockey_id': '00734',
             'jackey_name': '渡辺薫彦',
-            'rap_time': 0.0,
-            'diff_time': -145.0,
+            'rap_time': None,
+            'diff_time': None,
             'passage_rank': '4-4-2-2',
-            'last_3f': 0.0,
+            'last_3f': None,
             'weight': 492,
             'weight_diff': 4,
             'trainer_id': '00378',
@@ -269,17 +269,17 @@ class TestHorseNkLoader(unittest.TestCase):
             'horse_id': '1994108729',
             'race_date': '2001-12-16',
             'place': '香港',
-            'round': 0,
-            'days': 0,
+            'round': None,
+            'days': None,
             'weather': '',
             'race_number': 5,
             'race_id': '2001G0121605',
             'race_name': '香港ヴァーズ(G1)',
             'head_count': 14,
-            'bracket': 0,
+            'bracket': None,
             'horse_number': 9,
-            'win_odds': 0.0,
-            'popularity': 0,
+            'win_odds': None,
+            'popularity': None,
             'rank': 1,
             'jockey_id': '00666',
             'jockey_name': '武豊',
@@ -291,9 +291,9 @@ class TestHorseNkLoader(unittest.TestCase):
             'condition': '良',
             'rap_time': 147.8,
             'passage_rank': '',
-            'last_3f': 0.0,
-            'weight': 0,
-            'weight_diff': 0,
+            'last_3f': None,
+            'weight': None,
+            'weight_diff': None,
             'prize': 0.0
         }
         self.assertDictEqual(self.success_case.table[0], expect)

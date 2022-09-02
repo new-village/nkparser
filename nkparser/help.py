@@ -25,16 +25,13 @@ def formatter(reg, target:str, type_string:str):
 
     # # Redact comma from numerical values
     if type_string == "integer" or type_string == "real":
-        if val is None:
-            val = 0
-        else:
-            val = re.sub(",", "", val)
+            val = re.sub(",", "", val) if val is not None else None
 
     # Convert type
     if type_string == "integer":
-        value = int(val) if val is not None else 0
+        value = int(val) if val is not None else None
     elif type_string == "real":
-        value = float(val) if val is not None else 0
+        value = float(val) if val is not None else None
     elif type_string == "text":
         value = str(val) if val is not None else ""
     else:
@@ -68,6 +65,16 @@ def zero_suppress(arg:str) -> str:
     """
     return str(int(arg))
 
+def zero_fill(value:float) -> float:
+    """
+    Convert None to Zero Integer
+    Example
+    --------
+    >>> zero_fill(None)
+        0
+    """
+    return value if value is not None else 0.0
+
 def get_title(soup:Tag) -> str:
     """ description
     """
@@ -86,16 +93,20 @@ def create_uid(value:tuple) -> str:
     return value[0] + str(value[1]).zfill(2)
 
 def set_diff_time(value:tuple) -> float:
-    """ description
+    """ diff rap time from rank 1 time
+    :param value: Tuple object includes RANK and RAP TIME.
+    :return:
     """
-    if value[0] == 1:
+    if value[0] == 1 and value[1] is not None:
         global RAP_TIME
         RAP_TIME = value[1]
         diff_time = 0
+    elif value[0] != 1 and value[1] is not None:
+        diff_time = round(value[1] - RAP_TIME, 1)
     else:
-        diff_time = value[1] - RAP_TIME
+        diff_time = None
 
-    return round(diff_time, 1)
+    return diff_time
 
 def classify_length(length:int) -> str:
     """ description

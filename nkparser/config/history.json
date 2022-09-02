@@ -191,6 +191,7 @@
             "col_name": "prize",
             "alias": "賞金（万円）",
             "selector": "td:nth-of-type(28)",
+            "post_func": {"name": "zero_fill", "args": ["prize"]},
             "var_type": "real",
             "reg" : "\\d+,\\d+.\\d+|\\d+.\\d+"
         }
