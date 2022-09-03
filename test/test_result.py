@@ -12,6 +12,8 @@ class TestResultNkLoader(unittest.TestCase):
         cls.success_case = nkparser.load("result", "200108040211")
         # Load charset corruption case if requests use apparent_encoding option
         cls.euc_charset_case = nkparser.load("result", "202209020804")
+        # Load local race
+        cls.local_race_case = nkparser.load("result", "202250030808")
         # Load non-exist result case
         cls.error_case = nkparser.load("result", "201206050812")
 
@@ -36,7 +38,7 @@ class TestResultNkLoader(unittest.TestCase):
             'id': '200108040211',
             'race_number': 11,
             'race_name': '第36回京都大賞典(G2)',
-            'race_date': '2001-08-04',
+            'race_date': '2001-10-07',
             'race_time': '15:45',
             'type': '芝',
             'length': 2400,
@@ -60,7 +62,7 @@ class TestResultNkLoader(unittest.TestCase):
             'id': '202209020804',
             'race_number': 4,
             'race_name': '3歳未勝利',
-            'race_date': '2022-09-02',
+            'race_date': '2022-04-17',
             'race_time': '11:20',
             'type': '芝',
             'length': 2200,
@@ -76,6 +78,30 @@ class TestResultNkLoader(unittest.TestCase):
             'max_prize': 520.0
         }
         self.assertDictEqual(self.euc_charset_case.info[0], expect)
+
+    def test_local_race_parse(self):
+        """ testing race data compalison
+        """
+        expect = {
+            'id': '202250030808',
+            'race_number': 8,
+            'race_name': 'C2一',
+            'race_date': '2022-03-08',
+            'race_time': '16:20',
+            'type': 'ダート',
+            'length': 1400,
+            'length_class': 'Mile',
+            'handed': '右',
+            'weather': '晴',
+            'condition': '良',
+            'place': '',
+            'course': 'ダート1400',
+            'round': 22,
+            'days': 4,
+            'head_count': 10,
+            'max_prize': 60.0
+        }
+        self.assertDictEqual(self.local_race_case.info[0], expect)
 
     def test_result_parse(self):
         """ testing race data compalison

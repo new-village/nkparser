@@ -28,7 +28,7 @@
         },{
             "col_name": "race_date",
             "alias": "発走日",
-            "selector" : "div.race_num a:first-child",
+            "selector" : "div.race_num p a:first-child",
             "pre_func": {"name": "get_url", "args": ["race_date"]},
             "post_func": {"name": "fmt_date", "args": ["race_date"]},
             "var_type" : "text",
