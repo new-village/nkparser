@@ -83,6 +83,7 @@ class ResultLoader(NkLoader):
     def exec(self):
         """ Description
         """
+        self.info = parse_text("race_db", self.text, self.entity_id)
         self.table = parse_text("result", self.text, self.entity_id)
         return self
 

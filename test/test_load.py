@@ -139,12 +139,38 @@ class TestResultNkLoader(unittest.TestCase):
     def test_success_case_count(self):
         """ testing success case counts
         """
+        self.assertEqual(len(self.success_case.info), 1)
         self.assertEqual(len(self.success_case.table), 7)
 
     def test_error_case_count(self):
         """ testing error case counts
         """
+        self.assertEqual(len(self.error_case.info), 0)
         self.assertEqual(len(self.error_case.table), 0)
+
+    def test_race_parse(self):
+        """ testing race data compalison
+        """
+        expect = {
+            'id': '200108040211',
+            'race_number': 11,
+            'race_name': '第36回京都大賞典(G2)',
+            'race_date': '2001-08-04',
+            'race_time': '15:45',
+            'type': '芝',
+            'length': 2400,
+            'length_class': 'Long',
+            'handed': '右',
+            'weather': '晴',
+            'condition': '良',
+            'place': '京都',
+            'course': '京都芝2400',
+            'round': 4,
+            'days': 2,
+            'head_count': 7,
+            'max_prize': 6449.0
+        }
+        self.assertDictEqual(self.success_case.info[0], expect)
 
     def test_result_parse(self):
         """ testing race data compalison

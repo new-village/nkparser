@@ -3,9 +3,9 @@
 import json
 import os
 import re
+from datetime import datetime as dt
 
 from bs4 import Tag
-from datetime import datetime as dt
 
 import nkparser
 
@@ -16,7 +16,7 @@ def formatter(reg, target:str, type_string:str):
     Convert string to defined type
     Example
     --------
-    >>> formatter(r'\d+', '3,000', 'integer')
+    >>> formatter(r'\\d+', '3,000', 'integer')
         3000
     '''
     # Extract target variables
@@ -25,7 +25,7 @@ def formatter(reg, target:str, type_string:str):
 
     # # Redact comma from numerical values
     if type_string == "integer" or type_string == "real":
-            val = re.sub(",", "", val) if val is not None else None
+        val = re.sub(",", "", val) if val is not None else None
 
     # Convert type
     if type_string == "integer":
@@ -84,6 +84,13 @@ def get_url(soup:Tag) -> str:
     """ description
     """
     return soup.get("href") if soup is not None else None
+
+def count_tr(soup:Tag) -> int:
+    """ Counting TR elements in the soup for filling head count.
+    :param soup: bs4 object includes Table element.
+    :return: Int object
+    """
+    return len(soup.select("tr")) - 1
 
 def create_uid(value:tuple) -> str:
     """ Concatinating entry_id and 2 digits horse_number

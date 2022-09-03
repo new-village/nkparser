@@ -1,0 +1,116 @@
+{
+    "property": {
+        "entry": "race",
+        "url": "https://db.netkeiba.com/race/{ID}/",
+        "mode": "html",
+        "selector": "div#page",
+        "validator": "div.mainrace_data"
+    },
+    "columns": [
+        {
+            "col_name": "id", 
+            "alias": "レースID",
+            "selector": "null",
+            "var_type": "text", 
+            "index": "entity_id"
+        },{
+            "col_name": "race_number",
+            "alias": "レース番号",
+            "selector": "div.race_num a.active",
+            "var_type": "integer",
+            "reg": "(\\d+)R"
+        },{
+            "col_name": "race_name",
+            "alias": "レース名",
+            "selector": "dl.racedata dd h1",
+            "var_type": "text",
+            "reg": ".+"
+        },{
+            "col_name": "race_date",
+            "alias": "発走日",
+            "selector" : "div.race_num a:first-child",
+            "pre_func": {"name": "get_url", "args": ["race_date"]},
+            "post_func": {"name": "fmt_date", "args": ["race_date"]},
+            "var_type" : "text",
+            "reg" : "(\\d{8})"
+        },{
+            "col_name" : "race_time",
+            "alias": "発走時刻",
+            "selector" : "dl.racedata dd p diary_snap_cut span",
+            "var_type" : "text",
+            "reg" : "発走 : (\\d+:\\d+)"
+        },{
+            "col_name" : "type",
+            "alias": "コース種別",
+            "selector" : "dl.racedata dd p diary_snap_cut span",
+            "var_type" : "text",
+            "reg" : "芝|ダート|障害"
+        },{
+            "col_name" : "length",
+            "alias": "コース距離",
+            "selector" : "dl.racedata dd p diary_snap_cut span",
+            "var_type" : "integer",
+            "reg" : "\\d{3,4}"
+        },{
+            "col_name" : "length_class",
+            "alias": "距離分類",
+            "selector" : "null",
+            "post_func": {"name": "classify_length", "args": ["length"]},
+            "var_type" : "text"
+        },{
+            "col_name" : "handed",
+            "alias": "回り",
+            "selector" : "dl.racedata dd p diary_snap_cut span",
+            "var_type" : "text",
+            "reg" : "(右|左)"
+        },{
+            "col_name": "weather",
+            "alias": "天候",
+            "selector" : "dl.racedata dd p diary_snap_cut span",
+            "var_type" : "text",
+            "reg" : "晴|曇|小雨|雨|小雪|雪"
+        },{
+            "col_name" : "condition",
+            "alias": "馬場",
+            "selector" : "dl.racedata dd p diary_snap_cut span",
+            "var_type" : "text",
+            "reg" : "良|稍|稍重|重|不良"
+        },{
+            "col_name" : "place",
+            "alias": "会場",
+            "selector" : "div.mainrace_data.fc > div.data_intro > p.smalltxt",
+            "var_type" : "text",
+            "reg" : "函館|札幌|福島|新潟|中山|東京|中京|京都|阪神|小倉"
+        },{
+            "col_name" : "course",
+            "alias": "コース",
+            "selector" : "null",
+            "post_func": {"name": "concatinate", "args": ["place", "type", "length"]},
+            "var_type" : "text"
+        },{
+            "col_name" : "round",
+            "alias": "回数",
+            "selector" : "div.mainrace_data.fc > div.data_intro > p.smalltxt",
+            "var_type" : "integer",
+            "reg" : "(\\d+)回"
+        },{
+            "col_name" : "days",
+            "alias": "開催日数",
+            "selector" : "div.mainrace_data.fc > div.data_intro > p.smalltxt",
+            "var_type" : "integer",
+            "reg" : "(\\d+)日目"
+        },{
+            "col_name" : "head_count",
+            "alias": "出走頭数",
+            "selector" : "table.race_table_01.nk_tb_common",
+            "pre_func": {"name": "count_tr", "args": ["head_count"]},
+            "var_type" : "integer"
+        },{
+            "col_name" : "max_prize",
+            "alias": "最高賞金",
+            "selector" : "table.race_table_01.nk_tb_common tr:nth-of-type(2) td.txt_r:last-child",
+            "var_type" : "real",
+            "reg" : "\\d{1,3},\\d{3}\\.\\d{1}|\\d{1,3}\\.\\d{1}"
+        }
+    ]
+}
