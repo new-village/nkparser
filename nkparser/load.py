@@ -34,7 +34,7 @@ def load_contents(url):
     try:
         # Request Contents
         response = requests.get(url)
-        response.encoding = response.apparent_encoding
+        response.encoding = 'EUC-JP'
         response = response.text
     except requests.exceptions.RequestException as exp:
         raise SystemExit(f"Request to {url} has been failure") from exp
