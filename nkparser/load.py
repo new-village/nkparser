@@ -1,7 +1,5 @@
 '''load.py
 '''
-import json
-import re
 import time
 from random import randrange
 
@@ -30,7 +28,7 @@ def load(data_type, entity_id):
 
     return loader.exec()
 
-def load_contents(url, mode="html"):
+def load_contents(url):
     """ Load contents
     """
     try:
@@ -40,18 +38,6 @@ def load_contents(url, mode="html"):
         response = response.text
     except requests.exceptions.RequestException as exp:
         raise SystemExit(f"Request to {url} has been failure") from exp
-
-    return odds_error_check(response, url) if mode == "json" else response
-
-def odds_error_check(response, url):
-    """ Check odds json error
-    """
-    entity_id = re.findall(r"\d{12}", url)[0]
-
-    # Confirme Data Format
-    if json.loads(response)['status'] == 'middle':
-        # HTTP Response is not 200 (Normal)
-        raise SystemExit(f"There is no odds data: {entity_id}")
 
     return response
 
@@ -70,7 +56,7 @@ class NkLoader():
         self.entity_id = entity_id
         self.property = load_config(self.data_type)["property"]
         url = create_url(self.property["url"], entity_id)
-        self.text = load_contents(url, self.property["mode"])
+        self.text = load_contents(url)
         self.info = None
         self.table = None
         time.sleep(randrange(3, 6))
