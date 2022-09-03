@@ -80,7 +80,7 @@
             "alias": "会場",
             "selector" : "div.mainrace_data.fc > div.data_intro > p.smalltxt",
             "var_type" : "text",
-            "reg" : "函館|札幌|福島|新潟|中山|東京|中京|京都|阪神|小倉"
+            "reg" : "函館|札幌|福島|新潟|中山|東京|中京|京都|阪神|小倉|帯広|門別|盛岡|水沢|浦和|船橋|大井|川崎|金沢|笠松|名古屋|園田|姫路|高知|佐賀"
         },{
             "col_name" : "course",
             "alias": "コース",
