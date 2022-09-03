@@ -115,6 +115,18 @@ def set_diff_time(value:tuple) -> float:
 
     return diff_time
 
+def convert_type(_type:str) -> str:
+    """ The function convert abbr type to full type
+        if you set string to '障' and table to {'障': '障害', '芝': '芝'},
+        The function retrun '障害'.
+    """
+    table = {"芝": "芝", "ダ": "ダート", "障": "障害"}
+    if _type in table:
+        converted = table[_type]
+    else:
+        converted = _type
+    return converted
+
 def classify_length(length:int) -> str:
     """ description
     """

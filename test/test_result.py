@@ -9,7 +9,7 @@ class TestResultNkLoader(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Load normal result case includes suspension entry
-        cls.success_case = nkparser.load("result", "200108040211")
+        cls.success_case = nkparser.load("result", "202006030711")
         # Load charset corruption case if requests use apparent_encoding option
         cls.euc_charset_case = nkparser.load("result", "202209020804")
         # Load local race
@@ -21,7 +21,7 @@ class TestResultNkLoader(unittest.TestCase):
         """ testing success case counts
         """
         self.assertEqual(len(self.success_case.info), 1)
-        self.assertEqual(len(self.success_case.table), 7)
+        self.assertEqual(len(self.success_case.table), 11)
         self.assertEqual(len(self.euc_charset_case.info), 1)
         self.assertEqual(len(self.euc_charset_case.table), 18)
 
@@ -35,23 +35,23 @@ class TestResultNkLoader(unittest.TestCase):
         """ testing race data compalison
         """
         expect = {
-            'id': '200108040211',
+            'id': '202006030711',
             'race_number': 11,
-            'race_name': '第36回京都大賞典(G2)',
-            'race_date': '2001-10-07',
-            'race_time': '15:45',
-            'type': '芝',
-            'length': 2400,
-            'length_class': 'Long',
-            'handed': '右',
-            'weather': '晴',
-            'condition': '良',
-            'place': '京都',
-            'course': '京都芝2400',
-            'round': 4,
-            'days': 2,
-            'head_count': 7,
-            'max_prize': 6449.0
+            'race_name': '第22回中山グランドジャンプ(J.G1)',
+            'race_date': '2020-04-18',
+            'race_time': '15:40',
+            'type': '障害',
+            'length': 4250,
+            'length_class': 'Extended',
+            'handed': '',
+            'weather': '雨',
+            'condition': '不良',
+            'place': '中山',
+            'course': '中山障4250',
+            'round': 3,
+            'days': 7,
+            'head_count': 11,
+            'max_prize': 6639.2
         }
         self.assertDictEqual(self.success_case.info[0], expect)
 
@@ -95,7 +95,7 @@ class TestResultNkLoader(unittest.TestCase):
             'weather': '晴',
             'condition': '良',
             'place': '園田',
-            'course': '園田ダート1400',
+            'course': '園田ダ1400',
             'round': 22,
             'days': 4,
             'head_count': 10,
@@ -107,27 +107,27 @@ class TestResultNkLoader(unittest.TestCase):
         """ testing race data compalison
         """
         expect = {
-            'id': '20010804021105',
-            'race_id': '200108040211',
+            'id': '20200603071106',
+            'race_id': '202006030711',
             'rank': 1,
-            'bracket': 5,
-            'horse_number': 5,
-            'horse_id': '1996100292',
-            'horse_name': 'テイエムオペラオー',
+            'bracket': 6,
+            'horse_number': 6,
+            'horse_id': '2011101125',
+            'horse_name': 'オジュウチョウサン',
             'gender': '牡',
-            'age': 5,
-            'burden': 59.0,
-            'jockey_id': '01018',
-            'jackey_name': '和田竜二',
-            'rap_time': 145.0,
+            'age': 9,
+            'burden': 63.0,
+            'jockey_id': '01059',
+            'jackey_name': '石神深一',
+            'rap_time': 302.9,
             'diff_time': 0,
-            'passage_rank': '2-2-2-3',
-            'last_3f': 34.1,
-            'weight': 478,
-            'weight_diff': 4,
-            'trainer_id': '00397',
-            'trainer_name': '岩元市三',
-            'prize': 6449.0
+            'passage_rank': '2-2-1-1',
+            'last_3f': 14.3,
+            'weight': 510,
+            'weight_diff': 0,
+            'trainer_id': '01114',
+            'trainer_name': '和田正一',
+            'prize': 6639.2
         }
         self.assertDictEqual(self.success_case.table[0], expect)
 
@@ -135,29 +135,29 @@ class TestResultNkLoader(unittest.TestCase):
         """ testing race data compalison
         """
         expect = {
-            'id': '20010804021104',
-            'race_id': '200108040211',
+            'id': '20200603071109',
+            'race_id': '202006030711',
             'rank': None,
-            'bracket': 4,
-            'horse_number': 4,
-            'horse_id': '1996102442',
-            'horse_name': 'ナリタトップロード',
+            'bracket': 7,
+            'horse_number': 9,
+            'horse_id': '2010101798',
+            'horse_name': 'セガールフォンテン',
             'gender': '牡',
-            'age': 5,
-            'burden': 59.0,
-            'jockey_id': '00734',
-            'jackey_name': '渡辺薫彦',
+            'age': 10,
+            'burden': 63.0,
+            'jockey_id': '01087',
+            'jackey_name': '上野翔',
             'rap_time': None,
             'diff_time': None,
-            'passage_rank': '4-4-2-2',
+            'passage_rank': '',
             'last_3f': None,
-            'weight': 492,
-            'weight_diff': 4,
-            'trainer_id': '00378',
-            'trainer_name': '沖芳夫',
+            'weight': 498,
+            'weight_diff': -10,
+            'trainer_id': '00428',
+            'trainer_name': '石毛善彦',
             'prize': 0.0
         }
-        self.assertDictEqual(self.success_case.table[5], expect)
+        self.assertDictEqual(self.success_case.table[10], expect)
 
 if __name__ == '__main__':
     unittest.main()

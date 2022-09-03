@@ -43,8 +43,9 @@
             "col_name" : "type",
             "alias": "コース種別",
             "selector" : "dl.racedata dd p diary_snap_cut span",
+            "post_func": {"name": "convert_type", "args": ["type"]},
             "var_type" : "text",
-            "reg" : "芝|ダート|障害"
+            "reg" : "^芝|^ダ|^障"
         },{
             "col_name" : "length",
             "alias": "コース距離",
