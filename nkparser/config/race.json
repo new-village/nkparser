@@ -3,7 +3,7 @@
         "entry": "race",
         "url": "https://race.netkeiba.com/race/shutuba.html?race_id={ID}",
         "mode": "html",
-        "selector": "div.RaceMainColumn",
+        "selector": "div#page",
         "validator": "div.RaceList_NameBox"
     },
     "columns": [
@@ -29,7 +29,7 @@
         },{
             "col_name": "race_date",
             "alias": "発走日",
-            "selector" : "div.RaceList_Item03 a",
+            "selector" : "dl#RaceList_DateList dd.Active a",
             "pre_func": {"name": "get_url", "args": ["race_date"]},
             "post_func": {"name": "fmt_date", "args": ["race_date"]},
             "var_type" : "text",
