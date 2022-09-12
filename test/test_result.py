@@ -14,6 +14,8 @@ class TestResultNkLoader(unittest.TestCase):
         cls.euc_charset_case = nkparser.load("result", "202209020804")
         # Load local race
         cls.local_race_case = nkparser.load("result", "202250030808")
+        # Load unxpected time
+        cls.unexpected_time = nkparser.load("result", "2020C8100404")
         # Load non-exist result case
         cls.error_case = nkparser.load("result", "201206050812")
 
@@ -158,6 +160,34 @@ class TestResultNkLoader(unittest.TestCase):
             'prize': 0.0
         }
         self.assertDictEqual(self.success_case.table[10], expect)
+
+    def test_unexpected_time(self):
+        """ testing unexpected time
+        """
+        expect = {
+            'id': '2020C810040407',
+            'race_id': '2020C8100404',
+            'rank': 1,
+            'bracket': None,
+            'horse_number': 7,
+            'horse_id': '000a014680',
+            'horse_name': 'Sottsass',
+            'gender': '牡',
+            'age': 4,
+            'burden': 59.5,
+            'jockey_id': '05473',
+            'jackey_name': 'Ｃ．デム',
+            'rap_time': 159.3,
+            'diff_time': 0,
+            'passage_rank': '',
+            'last_3f': None,
+            'weight': None,
+            'weight_diff': None,
+            'trainer_id': 'a02f9',
+            'trainer_name': 'ＪＣ．ル',
+            'prize': 0.0
+        }
+        self.assertDictEqual(self.unexpected_time.table[0], expect)
 
 if __name__ == '__main__':
     unittest.main()

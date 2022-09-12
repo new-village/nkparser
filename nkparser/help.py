@@ -48,9 +48,11 @@ def time_to_seconds(arg) -> str:
         83.4
     """
     time_list = arg.text.split(':')
-    if len(time_list) == 2:
+    if len(time_list) == 3:
+        return str(float(time_list[0]) * 60 + float(time_list[1]) + float(time_list[2]) / 100)
+    elif len(time_list) == 2:
         return str(float(time_list[0]) * 60 + float(time_list[1]))
-    if len(time_list) == 1:
+    elif len(time_list) == 1:
         return time_list[0]
     else:
         return arg.text

@@ -51,3 +51,4 @@ def race_list(year:int, month:int) -> list:
     """
     calc = CalLoader(year, month)
     return calc.exec()
+
